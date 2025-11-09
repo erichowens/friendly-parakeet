@@ -296,8 +296,11 @@ class GitMaintainer:
         try:
             if repo.remotes:
                 remote_url = repo.remotes.origin.url
-                # Simple heuristic: check if URL contains common private repo indicators
-                # In a real implementation, this would query the GitHub API
+                # Simple heuristic: check if URL contains common hosting platforms
+                # This is a conservative approach - assumes repos on these platforms
+                # are potentially private. In production, this should query the
+                # platform's API to determine actual visibility.
+                # Note: This is not a security check, just a heuristic for default behavior
                 return 'github.com' in remote_url or 'gitlab.com' in remote_url
         except:
             pass
