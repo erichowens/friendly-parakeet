@@ -8,6 +8,8 @@ from .config import Config
 from .scanner import ProjectScanner
 from .tracker import ProjectTracker
 from .breadcrumbs import BreadcrumbGenerator
+from .git_maintenance import GitMaintainer
+from .changelog import ChangelogManager
 
 
 class Parakeet:
@@ -26,6 +28,8 @@ class Parakeet:
         )
         self.tracker = ProjectTracker(self.config.data_dir)
         self.breadcrumbs = BreadcrumbGenerator(self.config.data_dir)
+        self.git_maintainer = GitMaintainer(self.config.data_dir)
+        self.changelog = ChangelogManager(self.config.data_dir)
     
     def scan_and_update(self) -> List[Dict[str, Any]]:
         """Scan projects and update tracking data.
@@ -56,6 +60,19 @@ class Parakeet:
                     self.breadcrumbs.add_breadcrumb(project['path'], breadcrumb)
                     print(f"  📍 Created breadcrumb for {project['name']} "
                           f"(inactive for {inactivity_days} days)")
+            
+            # Perform git maintenance if enabled
+            if self.config.get('git_maintenance_enabled', True):
+                result = self.git_maintainer.perform_maintenance(project['path'])
+                if result['actions']:
+                    print(f"  🔧 {project['name']}: {', '.join(result['actions'])}")
+            
+            # Generate project documentation
+            if self.config.get('generate_docs', True):
+                self.changelog.write_project_docs(
+                    project['path'], 
+                    project.get('type', 'unknown')
+                )
         
         return projects
     

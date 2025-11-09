@@ -1,6 +1,6 @@
 """Web dashboard for Friendly Parakeet."""
 
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, jsonify, request
 from datetime import datetime
 from pathlib import Path
 
@@ -51,6 +51,48 @@ def create_app(parakeet):
         """API endpoint to trigger a scan."""
         projects = parakeet.scan_and_update()
         return jsonify({'status': 'success', 'projects_scanned': len(projects)})
+    
+    @app.route('/api/maintenance/<path:project_path>', methods=['POST'])
+    def api_maintenance(project_path):
+        """API endpoint to trigger git maintenance."""
+        result = parakeet.git_maintainer.perform_maintenance(project_path)
+        return jsonify(result)
+    
+    @app.route('/api/auto_commit/<path:project_path>', methods=['POST'])
+    def api_auto_commit(project_path):
+        """API endpoint to toggle auto-commit."""
+        data = request.json
+        enabled = data.get('enabled', True)
+        parakeet.git_maintainer.set_auto_commit(project_path, enabled)
+        return jsonify({'status': 'success', 'enabled': enabled})
+    
+    @app.route('/api/auto_push/<path:project_path>', methods=['POST'])
+    def api_auto_push(project_path):
+        """API endpoint to toggle auto-push."""
+        data = request.json
+        enabled = data.get('enabled', True)
+        parakeet.git_maintainer.set_auto_push(project_path, enabled)
+        return jsonify({'status': 'success', 'enabled': enabled})
+    
+    @app.route('/api/maintenance_status/<path:project_path>')
+    def api_maintenance_status(project_path):
+        """API endpoint to get maintenance status."""
+        return jsonify({
+            'auto_commit': parakeet.git_maintainer.is_auto_commit_enabled(project_path),
+            'auto_push': parakeet.git_maintainer.is_auto_push_enabled(project_path),
+        })
+    
+    @app.route('/api/changelog/<path:project_path>')
+    def api_changelog(project_path):
+        """API endpoint to get changelog."""
+        md = parakeet.changelog.generate_changelog_markdown(project_path)
+        return jsonify({'markdown': md})
+    
+    @app.route('/api/time_report/<path:project_path>')
+    def api_time_report(project_path):
+        """API endpoint to get time report."""
+        md = parakeet.changelog.generate_time_report(project_path)
+        return jsonify({'markdown': md})
     
     @app.template_filter('timeago')
     def timeago_filter(timestamp_str):

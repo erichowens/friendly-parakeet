@@ -133,5 +133,72 @@ def config_show(config):
     click.echo(json.dumps(cfg.config, indent=2))
 
 
+@main.command()
+@click.argument('project_path')
+@click.option('--config', '-c', help='Path to config file')
+def maintain(project_path, config):
+    """Perform git maintenance on a project (auto-commit, push)."""
+    parakeet = Parakeet(config)
+    
+    click.echo(f"\n🔧 Running git maintenance on {Path(project_path).name}...\n")
+    
+    result = parakeet.git_maintainer.perform_maintenance(project_path)
+    
+    if result['success']:
+        click.echo("✅ Maintenance completed successfully:")
+        for action in result['actions']:
+            click.echo(f"  • {action}")
+    else:
+        click.echo(f"❌ Maintenance failed: {result['error']}")
+
+
+@main.command()
+@click.argument('project_path')
+@click.option('--enabled/--disabled', default=True, help='Enable or disable auto-commit')
+@click.option('--config', '-c', help='Path to config file')
+def auto_commit(project_path, enabled, config):
+    """Enable or disable auto-commit for a project."""
+    parakeet = Parakeet(config)
+    parakeet.git_maintainer.set_auto_commit(project_path, enabled)
+    
+    status = "enabled" if enabled else "disabled"
+    click.echo(f"✅ Auto-commit {status} for {Path(project_path).name}")
+
+
+@main.command()
+@click.argument('project_path')
+@click.option('--enabled/--disabled', default=True, help='Enable or disable auto-push')
+@click.option('--config', '-c', help='Path to config file')
+def auto_push(project_path, enabled, config):
+    """Enable or disable auto-push for a project."""
+    parakeet = Parakeet(config)
+    parakeet.git_maintainer.set_auto_push(project_path, enabled)
+    
+    status = "enabled" if enabled else "disabled"
+    click.echo(f"✅ Auto-push {status} for {Path(project_path).name}")
+
+
+@main.command()
+@click.argument('project_path')
+@click.option('--config', '-c', help='Path to config file')
+def changelog(project_path, config):
+    """View changelog for a project."""
+    parakeet = Parakeet(config)
+    
+    md = parakeet.changelog.generate_changelog_markdown(project_path)
+    click.echo(md)
+
+
+@main.command()
+@click.argument('project_path')
+@click.option('--config', '-c', help='Path to config file')
+def time_report(project_path, config):
+    """View time tracking report for a project."""
+    parakeet = Parakeet(config)
+    
+    md = parakeet.changelog.generate_time_report(project_path)
+    click.echo(md)
+
+
 if __name__ == '__main__':
     main()

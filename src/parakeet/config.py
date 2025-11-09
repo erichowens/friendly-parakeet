@@ -27,6 +27,9 @@ class Config:
             '.tox',
         ],
         'dashboard_port': 5000,
+        'git_maintenance_enabled': True,  # Auto-commit and push features
+        'generate_docs': True,  # Generate changelogs and time reports
+        'auto_commit_max_files': 10,  # Max files before creating stacked commits
     }
     
     def __init__(self, config_path: str = None):

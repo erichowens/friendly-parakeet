@@ -56,11 +56,19 @@ class ProjectScanner:
                 continue
             
             # Scan subdirectories
-            for item in path.iterdir():
-                if item.is_dir() and not self._should_exclude(item.name):
-                    project_info = self._analyze_directory(item)
-                    if project_info:
-                        projects.append(project_info)
+            try:
+                for item in path.iterdir():
+                    try:
+                        if item.is_dir() and not self._should_exclude(item.name):
+                            project_info = self._analyze_directory(item)
+                            if project_info:
+                                projects.append(project_info)
+                    except (PermissionError, OSError):
+                        # Skip directories we can't access
+                        continue
+            except (PermissionError, OSError):
+                # Skip paths we can't read
+                continue
         
         return projects
     
@@ -84,39 +92,46 @@ class ProjectScanner:
         Returns:
             Project information dict or None if not a project
         """
-        # Check for project indicators
-        is_project = False
-        project_type = 'unknown'
-        
-        for indicator in self.PROJECT_INDICATORS:
-            if indicator.startswith('*'):
-                # Glob pattern
-                if list(path.glob(indicator)):
-                    is_project = True
-                    break
-            else:
-                if (path / indicator).exists():
-                    is_project = True
-                    project_type = self._detect_project_type(indicator)
-                    break
-        
-        if not is_project:
+        try:
+            # Check for project indicators
+            is_project = False
+            project_type = 'unknown'
+            
+            for indicator in self.PROJECT_INDICATORS:
+                try:
+                    if indicator.startswith('*'):
+                        # Glob pattern
+                        if list(path.glob(indicator)):
+                            is_project = True
+                            break
+                    else:
+                        if (path / indicator).exists():
+                            is_project = True
+                            project_type = self._detect_project_type(indicator)
+                            break
+                except (PermissionError, OSError):
+                    continue
+            
+            if not is_project:
+                return None
+            
+            # Get git information if available
+            git_info = self._get_git_info(path)
+            
+            # Get file statistics
+            stats = self._get_directory_stats(path)
+            
+            return {
+                'name': path.name,
+                'path': str(path.absolute()),
+                'type': project_type,
+                'git': git_info,
+                'stats': stats,
+                'last_scanned': datetime.now().isoformat(),
+            }
+        except (PermissionError, OSError):
             return None
-        
-        # Get git information if available
-        git_info = self._get_git_info(path)
-        
-        # Get file statistics
-        stats = self._get_directory_stats(path)
-        
-        return {
-            'name': path.name,
-            'path': str(path.absolute()),
-            'type': project_type,
-            'git': git_info,
-            'stats': stats,
-            'last_scanned': datetime.now().isoformat(),
-        }
+    
     
     def _detect_project_type(self, indicator: str) -> str:
         """Detect project type from indicator file.
