@@ -1,0 +1,11 @@
+# Mac-specific requirements for Friendly Parakeet menu bar app
+rumps>=0.4.0           # Ridiculously Uncomplicated macOS Python Statusbar apps
+py2app>=0.28          # Mac app bundling
+pyobjc-core>=9.0      # Python-Objective C bridge
+pyobjc-framework-Cocoa>=9.0  # Cocoa framework for Mac integration
+pyobjc-framework-AVFoundation>=9.0  # For sound playback
+plyer>=2.1            # Cross-platform notifications
+pyttsx3>=2.90         # Text-to-speech for budgie ideas
+openai>=1.0.0         # For Brilliant Budgies AI features (optional)
+pillow>=10.0.0        # Image processing for menu bar icons
+psutil>=5.9.0         # Process monitoring for IDE detection
