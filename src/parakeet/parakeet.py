@@ -24,7 +24,9 @@ class Parakeet:
         self.config = Config(config_path)
         self.scanner = ProjectScanner(
             self.config.watch_paths,
-            self.config.get('exclude_patterns', [])
+            self.config.get('exclude_patterns', []),
+            max_depth=self.config.get('scan_max_depth', 3),
+            recursive=self.config.get('scan_recursive', True)
         )
         self.tracker = ProjectTracker(self.config.data_dir)
         self.breadcrumbs = BreadcrumbGenerator(self.config.data_dir)

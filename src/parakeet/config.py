@@ -30,6 +30,8 @@ class Config:
         'git_maintenance_enabled': True,  # Auto-commit and push features
         'generate_docs': True,  # Generate changelogs and time reports
         'auto_commit_max_files': 10,  # Max files before creating stacked commits
+        'scan_max_depth': 3,  # Maximum depth for recursive scanning (0 = immediate subdirs only)
+        'scan_recursive': True,  # Whether to scan recursively or just immediate subdirectories
     }
     
     def __init__(self, config_path: str = None):
