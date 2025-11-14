@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Retrowave - Anatomically Correct</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(180deg, #0d001a 0%, #2d0055 50%, #ff00aa 100%);
+            overflow: hidden;
+        }
+        body::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(0deg, transparent, transparent 15px, #ff00aa22 15px, #ff00aa22 17px);
+            animation: gridScroll 10s linear infinite;
+        }
+        @keyframes gridScroll {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(30px); }
+        }
+        .parakeet {
+            filter: drop-shadow(0 0 40px #ff00aa) drop-shadow(0 0 80px #00ffff);
+            animation: cyberBob 3s ease-in-out infinite;
+        }
+        @keyframes cyberBob {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-35px) rotate(3deg); }
+        }
+        h1 {
+            position: absolute;
+            top: 40px;
+            color: #00ffff;
+            font: bold 28px 'Courier New', monospace;
+            text-shadow: 0 0 20px #00ffff, 0 0 40px #ff00aa;
+            letter-spacing: 6px;
+        }
+    </style>
+</head>
+<body>
+    <h1>RETROWAVE</h1>
+    <svg class="parakeet" width="350" height="350" viewBox="0 0 350 350">
+        <defs>
+            <linearGradient id="neonBody" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#ff00aa"/>
+                <stop offset="50%" stop-color="#00ffff"/>
+                <stop offset="100%" stop-color="#ff00aa"/>
+            </linearGradient>
+        </defs>
+
+        <!-- Body - sleek angular -->
+        <ellipse cx="175" cy="180" rx="55" ry="75" fill="url(#neonBody)" opacity="0.85"/>
+
+        <!-- Head - smaller angular -->
+        <circle cx="175" cy="110" r="38" fill="url(#neonBody)" opacity="0.9"/>
+
+        <!-- PROMINENT ANGULAR BEAK - Sharp cyberpunk style -->
+        <g>
+            <polygon points="205,110 250,105 250,115 210,125" fill="#ff00aa" stroke="#ff00ff" stroke-width="2"/>
+            <polygon points="205,110 210,125 205,120" fill="#ff006688"/>
+            <!-- Beak detail line -->
+            <line x1="210" y1="115" x2="245" y2="110" stroke="#00ffff" stroke-width="1.5" opacity="0.7"/>
+        </g>
+
+        <!-- Eye - glowing visor -->
+        <ellipse cx="190" cy="105" rx="10" ry="6" fill="#00ffff">
+            <animate attributeName="opacity" values="1;0.4;1" dur="2s" repeatCount="indefinite"/>
+        </ellipse>
+        <circle cx="192" cy="104" r="2" fill="white"/>
+
+        <!-- LEFT WING - Pivots from SHOULDER (side of body) -->
+        <g transform-origin="130 165">
+            <ellipse cx="120" cy="185" rx="40" ry="75" fill="#ff00aa" opacity="0.75"
+                     stroke="#00ffff" stroke-width="2.5" transform="rotate(-25 120 185)">
+                <animateTransform
+                    attributeName="transform"
+                    type="rotate"
+                    values="-25 120 185; -50 120 185; -25 120 185"
+                    dur="0.5s"
+                    repeatCount="indefinite"/>
+            </ellipse>
+            <!-- Wing accent lines -->
+            <path d="M 110 150 L 100 200" stroke="#00ffff" stroke-width="2" opacity="0.6" transform="rotate(-25 120 185)">
+                <animateTransform
+                    attributeName="transform"
+                    type="rotate"
+                    values="-25 120 185; -50 120 185; -25 120 185"
+                    dur="0.5s"
+                    repeatCount="indefinite"/>
+            </path>
+        </g>
+
+        <!-- RIGHT WING - Pivots from SHOULDER -->
+        <g transform-origin="220 165">
+            <ellipse cx="230" cy="185" rx="40" ry="75" fill="#ff00aa" opacity="0.75"
+                     stroke="#00ffff" stroke-width="2.5" transform="rotate(25 230 185)">
+                <animateTransform
+                    attributeName="transform"
+                    type="rotate"
+                    values="25 230 185; 50 230 185; 25 230 185"
+                    dur="0.5s"
+                    repeatCount="indefinite"/>
+            </ellipse>
+            <!-- Wing accent lines -->
+            <path d="M 240 150 L 250 200" stroke="#00ffff" stroke-width="2" opacity="0.6" transform="rotate(25 230 185)">
+                <animateTransform
+                    attributeName="transform"
+                    type="rotate"
+                    values="25 230 185; 50 230 185; 25 230 185"
+                    dur="0.5s"
+                    repeatCount="indefinite"/>
+            </path>
+        </g>
+
+        <!-- Tail - vertical bars with data flow -->
+        <g>
+            <rect x="160" y="245" width="8" height="0" fill="#ff00aa">
+                <animate attributeName="height" values="0;65;0" dur="1.5s" repeatCount="indefinite"/>
+            </rect>
+            <rect x="172" y="245" width="6" height="0" fill="#00ffff">
+                <animate attributeName="height" values="0;75;0" dur="1.3s" repeatCount="indefinite" begin="0.2s"/>
+            </rect>
+            <rect x="182" y="245" width="8" height="0" fill="#ff00aa">
+                <animate attributeName="height" values="0;65;0" dur="1.5s" repeatCount="indefinite" begin="0.4s"/>
+            </rect>
+        </g>
+
+        <!-- Glitch effect -->
+        <rect x="150" y="110" width="50" height="3" fill="#00ffff" opacity="0">
+            <animate attributeName="opacity" values="0;0.9;0" dur="0.2s" repeatCount="indefinite" begin="3s"/>
+            <animate attributeName="x" values="150;155;150" dur="0.2s" repeatCount="indefinite" begin="3s"/>
+        </rect>
+
+        <!-- Status text -->
+        <text x="175" y="330" font-family="monospace" font-size="11" fill="#00ffff" text-anchor="middle" opacity="0.8">
+            &lt;FLYSYS.EXE&gt; ACTIVE
+        </text>
+    </svg>
+</body>
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Paper Cut - Anatomically Correct</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #fff7ed 0%, #fed7aa 100%);
+        }
+        .parakeet {
+            animation: gentleFloat 6s ease-in-out infinite;
+        }
+        @keyframes gentleFloat {
+            0%, 100% { transform: translateY(0) rotate(-1deg); }
+            50% { transform: translateY(-25px) rotate(1deg); }
+        }
+        h1 {
+            position: absolute;
+            top: 40px;
+            color: #92400e;
+            font: 300 32px system-ui;
+            letter-spacing: 3px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Paper Cut Layers</h1>
+    <svg class="parakeet" width="380" height="380" viewBox="0 0 380 380">
+        <!-- Shadow layer (deepest) -->
+        <g opacity="0.25" transform="translate(8, 8)">
+            <ellipse cx="190" cy="190" rx="62" ry="80" fill="#059669"/>
+            <circle cx="190" cy="120" r="42" fill="#059669"/>
+        </g>
+
+        <!-- Base body layer -->
+        <g filter="drop-shadow(0 6px 12px rgba(0,0,0,0.15))">
+            <ellipse cx="190" cy="185" rx="60" ry="78" fill="#10b981"/>
+            <circle cx="190" cy="115" r="40" fill="#34d399"/>
+        </g>
+
+        <!-- Highlight layer on body -->
+        <g filter="drop-shadow(0 4px 8px rgba(0,0,0,0.1))">
+            <path d="M 160 145 Q 155 175 170 205 L 175 195 Q 165 170 160 145 Z" fill="#6ee7b7"/>
+            <path d="M 180 100 Q 175 110 180 125 L 185 120 Q 182 110 180 100 Z" fill="#6ee7b7"/>
+        </g>
+
+        <!-- PROMINENT CURVED BEAK - Layered paper cut style -->
+        <g filter="drop-shadow(0 3px 6px rgba(251,146,60,0.4))">
+            <!-- Upper beak layer (largest) -->
+            <path d="M 215 115 Q 255 110 260 120 Q 257 128 245 132 Q 235 135 225 130 L 220 125 Z"
+                  fill="#fb923c"/>
+            <!-- Middle beak layer -->
+            <path d="M 220 118 Q 250 115 253 122 Q 250 127 240 129 L 225 126 Z"
+                  fill="#fdba74"/>
+            <!-- Lower beak -->
+            <path d="M 215 125 Q 240 128 245 135 Q 240 138 230 137 L 220 130 Z"
+                  fill="#ea580c"/>
+            <!-- Beak highlight detail -->
+            <ellipse cx="235" cy="120" rx="8" ry="4" fill="#fff7ed" opacity="0.6"/>
+        </g>
+
+        <!-- Eye - layered -->
+        <g>
+            <circle cx="200" cy="110" r="9" fill="white" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.15))"/>
+            <circle cx="200" cy="110" r="5" fill="#1f2937"/>
+            <circle cx="201" cy="109" r="2.5" fill="white"/>
+        </g>
+
+        <!-- LEFT WING - Pivots from SHOULDER, layered feathers -->
+        <g transform-origin="145 175">
+            <ellipse cx="130" cy="195" rx="38" ry="70" fill="#3b82f6" opacity="0.85"
+                     filter="drop-shadow(0 4px 8px rgba(59,130,246,0.3))" transform="rotate(-30 130 195)">
+                <animateTransform
+                    attributeName="transform"
+                    type="rotate"
+                    values="-30 130 195; -52 130 195; -30 130 195"
+                    dur="1.2s"
+                    repeatCount="indefinite"/>
+            </ellipse>
+            <!-- Feather detail layers -->
+            <path d="M 130 160 Q 118 185 125 220" stroke="#60a5fa" stroke-width="3" fill="none"
+                  opacity="0.7" transform="rotate(-30 130 195)">
+                <animateTransform
+                    attributeName="transform"
+                    type="rotate"
+                    values="-30 130 195; -52 130 195; -30 130 195"
+                    dur="1.2s"
+                    repeatCount="indefinite"/>
+            </path>
+            <path d="M 140 165 Q 132 185 137 215" stroke="#93c5fd" stroke-width="2" fill="none"
+                  opacity="0.6" transform="rotate(-30 130 195)">
+                <animateTransform
+                    attributeName="transform"
+                    type="rotate"
+                    values="-30 130 195; -52 130 195; -30 130 195"
+                    dur="1.2s"
+                    repeatCount="indefinite"/>
+            </path>
+        </g>
+
+        <!-- RIGHT WING - Pivots from SHOULDER, layered feathers -->
+        <g transform-origin="235 175">
+            <ellipse cx="250" cy="195" rx="38" ry="70" fill="#3b82f6" opacity="0.85"
+                     filter="drop-shadow(0 4px 8px rgba(59,130,246,0.3))" transform="rotate(30 250 195)">
+                <animateTransform
+                    attributeName="transform"
+                    type="rotate"
+                    values="30 250 195; 52 250 195; 30 250 195"
+                    dur="1.2s"
+                    repeatCount="indefinite"/>
+            </ellipse>
+            <!-- Feather detail layers -->
+            <path d="M 250 160 Q 262 185 255 220" stroke="#60a5fa" stroke-width="3" fill="none"
+                  opacity="0.7" transform="rotate(30 250 195)">
+                <animateTransform
+                    attributeName="transform"
+                    type="rotate"
+                    values="30 250 195; 52 250 195; 30 250 195"
+                    dur="1.2s"
+                    repeatCount="indefinite"/>
+            </path>
+            <path d="M 240 165 Q 248 185 243 215" stroke="#93c5fd" stroke-width="2" fill="none"
+                  opacity="0.6" transform="rotate(30 250 195)">
+                <animateTransform
+                    attributeName="transform"
+                    type="rotate"
+                    values="30 250 195; 52 250 195; 30 250 195"
+                    dur="1.2s"
+                    repeatCount="indefinite"/>
+            </path>
+        </g>
+
+        <!-- Tail - layered feather cuts -->
+        <g filter="drop-shadow(0 4px 8px rgba(99,102,241,0.3))">
+            <path d="M 178 258 Q 172 290 178 310 L 185 305 Q 182 285 178 260 Z" fill="#6366f1" opacity="0.8"/>
+            <path d="M 190 258 Q 190 295 190 318 L 193 318 Q 193 295 190 260 Z" fill="#818cf8" opacity="0.9"/>
+            <path d="M 202 258 Q 208 290 202 310 L 195 305 Q 198 285 202 260 Z" fill="#6366f1" opacity="0.8"/>
+            <!-- Tail highlights -->
+            <path d="M 180 265 Q 178 280 180 295" stroke="#a5b4fc" stroke-width="2" fill="none" opacity="0.5"/>
+            <path d="M 200 265 Q 202 280 200 295" stroke="#a5b4fc" stroke-width="2" fill="none" opacity="0.5"/>
+        </g>
+    </svg>
+</body>
+</html>
