@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Isometric - Anatomically Correct</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+        }
+        .parakeet {
+            animation: architecturalFloat 5s ease-in-out infinite;
+        }
+        @keyframes architecturalFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-30px); }
+        }
+        h1 {
+            position: absolute;
+            top: 40px;
+            color: white;
+            font: 300 32px system-ui;
+            letter-spacing: 4px;
+            text-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+    </style>
+</head>
+<body>
+    <h1>Isometric Geometric</h1>
+    <svg class="parakeet" width="360" height="360" viewBox="0 0 360 360">
+        <!-- Body - main isometric diamond -->
+        <path d="M 180 110 L 230 145 L 180 210 L 130 145 Z"
+              fill="#10b981" stroke="#059669" stroke-width="3"/>
+
+        <!-- Body shading (isometric planes) -->
+        <path d="M 180 110 L 230 145 L 180 160 Z" fill="#34d399" opacity="0.8"/>
+        <path d="M 180 160 L 230 145 L 180 210 Z" fill="#059669" opacity="0.6"/>
+        <path d="M 180 160 L 130 145 L 180 210 Z" fill="#047857" opacity="0.7"/>
+
+        <!-- Head - smaller isometric cube -->
+        <path d="M 180 60 L 210 80 L 180 110 L 150 80 Z"
+              fill="#34d399" stroke="#10b981" stroke-width="3"/>
+        <path d="M 180 60 L 210 80 L 180 95 Z" fill="#6ee7b7"/>
+
+        <!-- PROMINENT GEOMETRIC BEAK - Chunky trapezoid -->
+        <g stroke="#f59e0b" stroke-width="2.5">
+            <!-- Upper beak piece -->
+            <path d="M 210 80 L 250 75 L 245 88 L 215 92 Z"
+                  fill="#fb923c"/>
+            <!-- Lower beak piece -->
+            <path d="M 210 92 L 240 95 L 235 102 L 215 100 Z"
+                  fill="#f97316"/>
+            <!-- Beak geometric highlight -->
+            <rect x="220" y="80" width="15" height="5" fill="#fde68a" opacity="0.7"/>
+        </g>
+
+        <!-- Eye - geometric dot -->
+        <circle cx="195" cy="85" r="5" fill="#1f2937" stroke="#f3f4f6" stroke-width="2"/>
+        <circle cx="196" cy="84" r="2" fill="white"/>
+
+        <!-- LEFT WING - Pivots from SHOULDER with architectural precision -->
+        <g transform-origin="130 145">
+            <path d="M 130 145 L 80 165 L 95 220 L 145 200 Z"
+                  fill="#3b82f6" stroke="#2563eb" stroke-width="3">
+                <animateTransform
+                    attributeName="transform"
+                    type="rotate"
+                    values="0 130 145; -28 130 145; 0 130 145"
+                    dur="0.8s"
+                    repeatCount="indefinite"/>
+            </path>
+            <!-- Wing geometric pattern -->
+            <path d="M 115 165 L 105 185 L 120 200"
+                  fill="none" stroke="#60a5fa" stroke-width="2.5">
+                <animateTransform
+                    attributeName="transform"
+                    type="rotate"
+                    values="0 130 145; -28 130 145; 0 130 145"
+                    dur="0.8s"
+                    repeatCount="indefinite"/>
+            </path>
+            <circle cx="105" cy="185" r="3" fill="#93c5fd">
+                <animateTransform
+                    attributeName="transform"
+                    type="rotate"
+                    values="0 130 145; -28 130 145; 0 130 145"
+                    dur="0.8s"
+                    repeatCount="indefinite"/>
+            </circle>
+        </g>
+
+        <!-- RIGHT WING - Pivots from SHOULDER with architectural precision -->
+        <g transform-origin="230 145">
+            <path d="M 230 145 L 280 165 L 265 220 L 215 200 Z"
+                  fill="#3b82f6" stroke="#2563eb" stroke-width="3">
+                <animateTransform
+                    attributeName="transform"
+                    type="rotate"
+                    values="0 230 145; 28 230 145; 0 230 145"
+                    dur="0.8s"
+                    repeatCount="indefinite"/>
+            </path>
+            <!-- Wing geometric pattern -->
+            <path d="M 245 165 L 255 185 L 240 200"
+                  fill="none" stroke="#60a5fa" stroke-width="2.5">
+                <animateTransform
+                    attributeName="transform"
+                    type="rotate"
+                    values="0 230 145; 28 230 145; 0 230 145"
+                    dur="0.8s"
+                    repeatCount="indefinite"/>
+            </path>
+            <circle cx="255" cy="185" r="3" fill="#93c5fd">
+                <animateTransform
+                    attributeName="transform"
+                    type="rotate"
+                    values="0 230 145; 28 230 145; 0 230 145"
+                    dur="0.8s"
+                    repeatCount="indefinite"/>
+            </circle>
+        </g>
+
+        <!-- Tail - geometric triangular panels -->
+        <g stroke="#4f46e5" stroke-width="2.5">
+            <path d="M 165 210 L 155 270 L 170 265 Z" fill="#6366f1"/>
+            <path d="M 180 210 L 180 280 L 185 280 Z" fill="#818cf8"/>
+            <path d="M 195 210 L 205 270 L 190 265 Z" fill="#6366f1"/>
+        </g>
+
+        <!-- Feet - geometric lines -->
+        <line x1="160" y1="210" x2="150" y2="235" stroke="#f97316" stroke-width="4" stroke-linecap="square"/>
+        <line x1="200" y1="210" x2="210" y2="235" stroke="#f97316" stroke-width="4" stroke-linecap="square"/>
+
+        <!-- Tech circuit overlay (subtle) -->
+        <g opacity="0.3">
+            <path d="M 165 150 L 180 150 L 180 165" stroke="#fbbf24" stroke-width="1.5" fill="none"/>
+            <circle cx="165" cy="150" r="2" fill="#fbbf24"/>
+            <circle cx="180" cy="165" r="2" fill="#fbbf24"/>
+        </g>
+    </svg>
+</body>
+</html>

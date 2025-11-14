@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Retrowave V1: Cyberpunk Edge</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(180deg, #0a0015 0%, #1a0033 40%, #ff00ff 70%, #00ffff 100%);
+            font-family: 'Courier New', monospace;
+            overflow: hidden;
+        }
+        /* Animated grid background */
+        body::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(#ff00ff22 1px, transparent 1px),
+                linear-gradient(90deg, #ff00ff22 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+            perspective: 1000px;
+            transform: rotateX(60deg) scaleY(3);
+        }
+        @keyframes gridMove {
+            0% { background-position: 0 0; }
+            100% { background-position: 50px 50px; }
+        }
+        .container {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+        h1 {
+            color: #00ffff;
+            font-weight: bold;
+            margin-bottom: 20px;
+            font-size: 24px;
+            text-shadow: 0 0 20px #00ffff, 0 0 40px #00ffff, 0 0 60px #ff00ff;
+            letter-spacing: 4px;
+        }
+        .parakeet {
+            filter: drop-shadow(0 0 30px #ff00ff) drop-shadow(0 0 60px #00ffff);
+            animation: glide 2.5s ease-in-out infinite;
+        }
+        @keyframes glide {
+            0%, 100% { transform: translateY(0px) translateX(0px); }
+            50% { transform: translateY(-40px) translateX(10px); }
+        }
+        .scanline {
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00ffff, transparent);
+            animation: scan 3s linear infinite;
+        }
+        @keyframes scan {
+            0% { top: 0; opacity: 0.8; }
+            100% { top: 100%; opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="scanline"></div>
+    <div class="container">
+        <h1>RETROWAVE V1</h1>
+        <svg class="parakeet" width="320" height="320" viewBox="0 0 320 320">
+            <defs>
+                <linearGradient id="cyber1" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:#ff00ff;stop-opacity:0.9" />
+                    <stop offset="50%" style="stop-color:#00ffff;stop-opacity:0.9" />
+                    <stop offset="100%" style="stop-color:#ff00ff;stop-opacity:0.9" />
+                </linearGradient>
+                <filter id="chrome">
+                    <feGaussianBlur in="SourceAlpha" stdDeviation="4"/>
+                    <feOffset dx="0" dy="4" result="offsetblur"/>
+                    <feComponentTransfer>
+                        <feFuncA type="linear" slope="0.5"/>
+                    </feComponentTransfer>
+                    <feMerge>
+                        <feMergeNode/>
+                        <feMergeNode in="SourceGraphic"/>
+                    </feMerge>
+                </filter>
+            </defs>
+
+            <!-- Chromatic aberration effect on edges -->
+            <g filter="url(#chrome)">
+                <!-- Main body - sharp edges -->
+                <polygon points="160,100 190,120 190,170 160,200 130,170 130,120"
+                         fill="url(#cyber1)" stroke="#00ffff" stroke-width="3"/>
+
+                <!-- Head - angular -->
+                <polygon points="160,60 180,75 180,100 160,110 140,100 140,75"
+                         fill="url(#cyber1)" stroke="#ff00ff" stroke-width="3"/>
+
+                <!-- Visor/Eye - glowing -->
+                <rect x="150" y="78" width="20" height="8" fill="#00ffff" rx="2">
+                    <animate attributeName="opacity" values="1;0.6;1" dur="1.5s" repeatCount="indefinite"/>
+                </rect>
+
+                <!-- Beak - sharp triangle -->
+                <polygon points="180,85 200,85 190,95" fill="#ff00ff"/>
+
+                <!-- Wings - geometric panels -->
+                <polygon points="130,140 90,150 100,190 120,180" fill="#ff00ff" opacity="0.8" stroke="#00ffff" stroke-width="2">
+                    <animateTransform attributeName="transform" type="rotate"
+                        from="0 115 165" to="-25 115 165"
+                        dur="0.4s" repeatCount="indefinite"
+                        values="0 115 165; -25 115 165; 0 115 165"/>
+                </polygon>
+
+                <polygon points="190,140 230,150 220,190 200,180" fill="#ff00ff" opacity="0.8" stroke="#00ffff" stroke-width="2">
+                    <animateTransform attributeName="transform" type="rotate"
+                        from="0 205 165" to="25 205 165"
+                        dur="0.4s" repeatCount="indefinite"
+                        values="0 205 165; 25 205 165; 0 205 165"/>
+                </polygon>
+
+                <!-- Tail - data stream bars -->
+                <rect x="145" y="200" width="6" height="50" fill="#ff00ff" opacity="0.9">
+                    <animate attributeName="height" values="50;60;50" dur="1s" repeatCount="indefinite"/>
+                </rect>
+                <rect x="157" y="200" width="6" height="60" fill="#00ffff" opacity="0.9">
+                    <animate attributeName="height" values="60;70;60" dur="1.2s" repeatCount="indefinite"/>
+                </rect>
+                <rect x="169" y="200" width="6" height="50" fill="#ff00ff" opacity="0.9">
+                    <animate attributeName="height" values="50;60;50" dur="0.9s" repeatCount="indefinite"/>
+                </rect>
+            </g>
+
+            <!-- Pixel glitch effect -->
+            <rect x="140" y="100" width="40" height="2" fill="#00ffff" opacity="0.6">
+                <animate attributeName="opacity" values="0;0.8;0" dur="0.3s" repeatCount="indefinite"/>
+                <animate attributeName="x" values="140;145;140" dur="0.3s" repeatCount="indefinite"/>
+            </rect>
+
+            <!-- Status HUD -->
+            <text x="160" y="280" font-family="monospace" font-size="10" fill="#00ffff" text-anchor="middle">
+                &lt;PARAKEET.SYS&gt; ONLINE
+            </text>
+        </svg>
+    </div>
+</body>
+</html>

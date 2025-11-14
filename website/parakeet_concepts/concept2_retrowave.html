@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Concept 2: Retrowave/Synthwave Parakeet</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(180deg, #1a0033 0%, #ff00ff 50%, #00ffff 100%);
+            font-family: 'Courier New', monospace;
+            position: relative;
+            overflow: hidden;
+        }
+        body::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 50%;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 20px,
+                #ff00ff33 20px,
+                #ff00ff33 22px
+            );
+        }
+        .container {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+        h1 {
+            color: #ff00ff;
+            font-weight: bold;
+            margin-bottom: 40px;
+            font-size: 32px;
+            text-shadow: 0 0 20px #ff00ff, 0 0 40px #ff00ff;
+        }
+        .parakeet {
+            filter: drop-shadow(0 0 20px #ff00ff) drop-shadow(0 0 40px #00ffff);
+        }
+        @keyframes glide {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-30px); }
+        }
+        .parakeet {
+            animation: glide 3s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Concept 2: Retrowave</h1>
+        <svg class="parakeet" width="300" height="300" viewBox="0 0 300 300">
+            <defs>
+                <linearGradient id="neon1" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:#ff00ff;stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:#00ffff;stop-opacity:1" />
+                </linearGradient>
+                <linearGradient id="neon2" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" style="stop-color:#00ffff;stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:#ff00ff;stop-opacity:1" />
+                </linearGradient>
+            </defs>
+
+            <!-- Silhouette style with neon glow -->
+            <!-- Body -->
+            <ellipse cx="150" cy="140" rx="50" ry="65" fill="url(#neon1)" opacity="0.8"/>
+
+            <!-- Head -->
+            <circle cx="150" cy="85" r="30" fill="url(#neon1)" opacity="0.8"/>
+
+            <!-- Beak -->
+            <path d="M 170 85 L 195 85 L 180 95 Z" fill="#ff00ff"/>
+
+            <!-- Eye glow -->
+            <circle cx="160" cy="80" r="6" fill="#00ffff">
+                <animate attributeName="opacity" values="1;0.5;1" dur="2s" repeatCount="indefinite"/>
+            </circle>
+
+            <!-- Wings with scan lines -->
+            <g>
+                <ellipse cx="110" cy="140" rx="35" ry="60" fill="url(#neon2)" opacity="0.7" transform="rotate(-20 110 140)">
+                    <animateTransform
+                        attributeName="transform"
+                        type="rotate"
+                        from="-20 110 140"
+                        to="-35 110 140"
+                        dur="0.5s"
+                        repeatCount="indefinite"
+                        values="-20 110 140; -35 110 140; -20 110 140"/>
+                </ellipse>
+                <ellipse cx="190" cy="140" rx="35" ry="60" fill="url(#neon2)" opacity="0.7" transform="rotate(20 190 140)">
+                    <animateTransform
+                        attributeName="transform"
+                        type="rotate"
+                        from="20 190 140"
+                        to="35 190 140"
+                        dur="0.5s"
+                        repeatCount="indefinite"
+                        values="20 190 140; 35 190 140; 20 190 140"/>
+                </ellipse>
+            </g>
+
+            <!-- Tail with gradient stripes -->
+            <path d="M 140 195 L 130 250 L 145 240 Z" fill="#ff00ff" opacity="0.8"/>
+            <path d="M 150 195 L 150 260 L 155 260 Z" fill="#00ffff" opacity="0.8"/>
+            <path d="M 160 195 L 170 250 L 155 240 Z" fill="#ff00ff" opacity="0.8"/>
+
+            <!-- Pixel grid overlay -->
+            <rect x="100" y="80" width="100" height="120" fill="none" stroke="#ff00ff" stroke-width="0.5" opacity="0.3"
+                  stroke-dasharray="5,5"/>
+
+            <!-- Glitch effect text -->
+            <text x="150" y="270" font-family="monospace" font-size="14" fill="#00ffff" text-anchor="middle"
+                  opacity="0.6">FLY_AWAY.EXE</text>
+        </svg>
+    </div>
+</body>
+</html>

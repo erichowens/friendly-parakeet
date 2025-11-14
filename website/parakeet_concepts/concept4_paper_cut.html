@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Concept 4: Paper Cut Layered Parakeet</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            font-family: 'SF Pro Display', -apple-system, sans-serif;
+        }
+        .container {
+            text-align: center;
+        }
+        h1 {
+            color: #78350f;
+            font-weight: 300;
+            margin-bottom: 40px;
+            font-size: 32px;
+        }
+        .layer {
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));
+        }
+        .parakeet {
+            animation: sway 5s ease-in-out infinite;
+        }
+        @keyframes sway {
+            0%, 100% { transform: rotate(-2deg); }
+            50% { transform: rotate(2deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Concept 4: Paper Cut Layers</h1>
+        <svg class="parakeet" width="300" height="300" viewBox="0 0 300 300">
+            <!-- Back layer - shadow -->
+            <g class="layer" opacity="0.3">
+                <ellipse cx="158" cy="148" rx="48" ry="68" fill="#059669"/>
+                <circle cx="158" cy="93" r="33" fill="#059669"/>
+            </g>
+
+            <!-- Middle layer - body -->
+            <g class="layer">
+                <ellipse cx="152" cy="142" rx="48" ry="68" fill="#10b981"/>
+                <circle cx="152" cy="87" r="33" fill="#34d399"/>
+            </g>
+
+            <!-- Front layer - highlights -->
+            <g class="layer">
+                <!-- Head highlight -->
+                <path d="M 140 70 Q 135 85, 145 95 L 155 85 Q 150 72, 140 70 Z" fill="#6ee7b7"/>
+
+                <!-- Body highlight -->
+                <path d="M 130 115 Q 125 140, 140 165 L 145 155 Q 138 130, 130 115 Z" fill="#6ee7b7"/>
+
+                <!-- Beak - separate layer -->
+                <path d="M 175 87 L 195 87 Q 193 95, 185 97 L 180 92 Z" fill="#fb923c"
+                      style="filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2))"/>
+
+                <!-- Eye - layered -->
+                <circle cx="165" cy="82" r="7" fill="white"/>
+                <circle cx="165" cy="82" r="4" fill="#1f2937"/>
+                <circle cx="166" cy="81" r="2" fill="white"/>
+            </g>
+
+            <!-- Wings - separate cut-out layers -->
+            <g class="layer">
+                <ellipse cx="115" cy="142" rx="30" ry="55" fill="#3b82f6" opacity="0.9" transform="rotate(-25 115 142)">
+                    <animateTransform
+                        attributeName="transform"
+                        type="rotate"
+                        from="-25 115 142"
+                        to="-40 115 142"
+                        dur="1s"
+                        repeatCount="indefinite"
+                        values="-25 115 142; -40 115 142; -25 115 142"/>
+                </ellipse>
+                <!-- Wing detail -->
+                <path d="M 115 120 Q 105 135, 110 155 L 115 150 Q 112 135, 115 120 Z"
+                      fill="#60a5fa" opacity="0.7" transform="rotate(-25 115 142)">
+                    <animateTransform
+                        attributeName="transform"
+                        type="rotate"
+                        from="-25 115 142"
+                        to="-40 115 142"
+                        dur="1s"
+                        repeatCount="indefinite"
+                        values="-25 115 142; -40 115 142; -25 115 142"/>
+                </path>
+            </g>
+
+            <g class="layer">
+                <ellipse cx="189" cy="142" rx="30" ry="55" fill="#3b82f6" opacity="0.9" transform="rotate(25 189 142)">
+                    <animateTransform
+                        attributeName="transform"
+                        type="rotate"
+                        from="25 189 142"
+                        to="40 189 142"
+                        dur="1s"
+                        repeatCount="indefinite"
+                        values="25 189 142; 40 189 142; 25 189 142"/>
+                </ellipse>
+                <!-- Wing detail -->
+                <path d="M 189 120 Q 199 135, 194 155 L 189 150 Q 192 135, 189 120 Z"
+                      fill="#60a5fa" opacity="0.7" transform="rotate(25 189 142)">
+                    <animateTransform
+                        attributeName="transform"
+                        type="rotate"
+                        from="25 189 142"
+                        to="40 189 142"
+                        dur="1s"
+                        repeatCount="indefinite"
+                        values="25 189 142; 40 189 142; 25 189 142"/>
+                </path>
+            </g>
+
+            <!-- Tail - layered feathers -->
+            <g class="layer">
+                <path d="M 142 205 L 135 250 Q 140 245, 145 247 L 142 210 Z" fill="#6366f1" opacity="0.8"/>
+                <path d="M 152 205 L 152 260 Q 154 255, 154 255 L 152 210 Z" fill="#818cf8" opacity="0.9"/>
+                <path d="M 162 205 L 169 250 Q 164 245, 159 247 L 162 210 Z" fill="#6366f1" opacity="0.8"/>
+            </g>
+        </svg>
+    </div>
+</body>
+</html>

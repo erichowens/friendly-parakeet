@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Concept 5: Tech-Nature Fusion Parakeet</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: radial-gradient(circle at center, #1a1a2e 0%, #0f0f1e 100%);
+            font-family: 'SF Mono', monospace;
+        }
+        .container {
+            text-align: center;
+        }
+        h1 {
+            color: #10b981;
+            font-weight: 400;
+            margin-bottom: 40px;
+            font-size: 32px;
+            text-shadow: 0 0 10px #10b981;
+        }
+        .circuit {
+            animation: pulse 2s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 1; }
+        }
+        .parakeet {
+            animation: hover 3s ease-in-out infinite;
+        }
+        @keyframes hover {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Concept 5: Tech-Nature Fusion</h1>
+        <svg class="parakeet" width="350" height="350" viewBox="0 0 350 350">
+            <defs>
+                <linearGradient id="bioGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:#10b981;stop-opacity:1" />
+                    <stop offset="50%" style="stop-color:#06b6d4;stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:1" />
+                </linearGradient>
+                <filter id="glow">
+                    <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                    <feMerge>
+                        <feMergeNode in="coloredBlur"/>
+                        <feMergeNode in="SourceGraphic"/>
+                    </feMerge>
+                </filter>
+            </defs>
+
+            <!-- Circuit background -->
+            <g class="circuit">
+                <line x1="50" y1="120" x2="100" y2="120" stroke="#10b981" stroke-width="1"/>
+                <circle cx="100" cy="120" r="3" fill="#10b981"/>
+                <line x1="250" y1="120" x2="300" y2="120" stroke="#06b6d4" stroke-width="1"/>
+                <circle cx="250" cy="120" r="3" fill="#06b6d4"/>
+                <line x1="175" y1="50" x2="175" y2="100" stroke="#8b5cf6" stroke-width="1"/>
+                <circle cx="175" cy="100" r="3" fill="#8b5cf6"/>
+            </g>
+
+            <!-- Organic body with tech elements -->
+            <g filter="url(#glow)">
+                <!-- Body - organic shape with circuit patterns -->
+                <ellipse cx="175" cy="160" rx="50" ry="70" fill="url(#bioGrad)" opacity="0.6"/>
+
+                <!-- Circuit overlay on body -->
+                <path d="M 155 140 L 165 140 L 165 150 M 185 140 L 195 140 L 195 150 M 175 135 L 175 155"
+                      stroke="#0ea5e9" stroke-width="2" opacity="0.8"/>
+                <circle cx="155" cy="140" r="2" fill="#0ea5e9"/>
+                <circle cx="195" cy="140" r="2" fill="#0ea5e9"/>
+                <circle cx="175" cy="155" r="2" fill="#0ea5e9"/>
+
+                <!-- Head - biotech -->
+                <circle cx="175" cy="110" r="35" fill="url(#bioGrad)" opacity="0.7"/>
+
+                <!-- Neural network pattern in head -->
+                <circle cx="165" cy="105" r="2" fill="#10b981"/>
+                <circle cx="185" cy="105" r="2" fill="#10b981"/>
+                <circle cx="175" cy="120" r="2" fill="#10b981"/>
+                <line x1="165" y1="105" x2="175" y2="120" stroke="#10b981" stroke-width="0.5"/>
+                <line x1="185" y1="105" x2="175" y2="120" stroke="#10b981" stroke-width="0.5"/>
+
+                <!-- Eye with digital iris -->
+                <circle cx="185" cy="105" r="7" fill="#1a1a2e"/>
+                <circle cx="185" cy="105" r="4" fill="#06b6d4">
+                    <animate attributeName="r" values="4;3;4" dur="3s" repeatCount="indefinite"/>
+                </circle>
+                <circle cx="186" cy="104" r="2" fill="#e0f2fe"/>
+
+                <!-- Digital beak -->
+                <path d="M 200 110 L 225 110 L 215 122 L 210 118 Z"
+                      fill="#f97316" opacity="0.9"
+                      stroke="#fb923c" stroke-width="1"/>
+
+                <!-- Wing - half organic, half digital -->
+                <g>
+                    <!-- Organic part -->
+                    <ellipse cx="135" cy="160" rx="28" ry="60" fill="#10b981" opacity="0.5" transform="rotate(-20 135 160)">
+                        <animateTransform
+                            attributeName="transform"
+                            type="rotate"
+                            from="-20 135 160"
+                            to="-35 135 160"
+                            dur="0.8s"
+                            repeatCount="indefinite"
+                            values="-20 135 160; -35 135 160; -20 135 160"/>
+                    </ellipse>
+                    <!-- Digital grid overlay -->
+                    <rect x="110" y="130" width="50" height="60" fill="none" stroke="#06b6d4" stroke-width="0.5"
+                          opacity="0.6" stroke-dasharray="5,5" transform="rotate(-20 135 160)">
+                        <animateTransform
+                            attributeName="transform"
+                            type="rotate"
+                            from="-20 135 160"
+                            to="-35 135 160"
+                            dur="0.8s"
+                            repeatCount="indefinite"
+                            values="-20 135 160; -35 135 160; -20 135 160"/>
+                    </rect>
+                </g>
+
+                <g>
+                    <!-- Organic part -->
+                    <ellipse cx="215" cy="160" rx="28" ry="60" fill="#10b981" opacity="0.5" transform="rotate(20 215 160)">
+                        <animateTransform
+                            attributeName="transform"
+                            type="rotate"
+                            from="20 215 160"
+                            to="35 215 160"
+                            dur="0.8s"
+                            repeatCount="indefinite"
+                            values="20 215 160; 35 215 160; 20 215 160"/>
+                    </ellipse>
+                    <!-- Digital grid overlay -->
+                    <rect x="190" y="130" width="50" height="60" fill="none" stroke="#06b6d4" stroke-width="0.5"
+                          opacity="0.6" stroke-dasharray="5,5" transform="rotate(20 215 160)">
+                        <animateTransform
+                            attributeName="transform"
+                            type="rotate"
+                            from="20 215 160"
+                            to="35 215 160"
+                            dur="0.8s"
+                            repeatCount="indefinite"
+                            values="20 215 160; 35 215 160; 20 215 160"/>
+                    </rect>
+                </g>
+
+                <!-- Tail - data stream -->
+                <path d="M 165 225 L 160 270" stroke="url(#bioGrad)" stroke-width="4" stroke-linecap="round"/>
+                <path d="M 175 225 L 175 280" stroke="url(#bioGrad)" stroke-width="5" stroke-linecap="round"/>
+                <path d="M 185 225 L 190 270" stroke="url(#bioGrad)" stroke-width="4" stroke-linecap="round"/>
+
+                <!-- Data particles flowing from tail -->
+                <circle cx="160" cy="250" r="2" fill="#10b981">
+                    <animate attributeName="cy" from="225" to="280" dur="2s" repeatCount="indefinite"/>
+                    <animate attributeName="opacity" from="1" to="0" dur="2s" repeatCount="indefinite"/>
+                </circle>
+                <circle cx="175" cy="260" r="2" fill="#06b6d4">
+                    <animate attributeName="cy" from="225" to="290" dur="2.5s" repeatCount="indefinite"/>
+                    <animate attributeName="opacity" from="1" to="0" dur="2.5s" repeatCount="indefinite"/>
+                </circle>
+                <circle cx="190" cy="255" r="2" fill="#8b5cf6">
+                    <animate attributeName="cy" from="225" to="285" dur="2.2s" repeatCount="indefinite"/>
+                    <animate attributeName="opacity" from="1" to="0" dur="2.2s" repeatCount="indefinite"/>
+                </circle>
+            </g>
+
+            <!-- Status text -->
+            <text x="175" y="320" font-family="monospace" font-size="10" fill="#10b981" text-anchor="middle"
+                  opacity="0.6">STATUS: ACTIVE | SYNC: 100%</text>
+        </svg>
+    </div>
+</body>
+</html>
