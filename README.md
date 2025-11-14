@@ -2,6 +2,8 @@
 
 Your little coding buddy who crawls through your projects and keeps track of your progress!
 
+**NEW: Mac Menu Bar App!** 🎉 Transform Friendly Parakeet into a delightful Mac menu bar companion with chirping notifications and "Brilliant Budgies" - AI-powered coding ideas generated during off-hours! [Learn more →](MAC_APP_README.md)
+
 ## What is Friendly Parakeet?
 
 Friendly Parakeet is a project progress tracker and velocity monitor that:
@@ -16,6 +18,8 @@ Friendly Parakeet is a project progress tracker and velocity monitor that:
 - 🚀 **Auto-push** - Keeps your work synced to remote (configurable per-project)
 - 📚 **Documentation** - Generates changelogs and time reports automatically
 - ⏱️ **Time tracking** - Tracks how long work actually takes on each project
+- 🖥️ **Mac Menu Bar App** (NEW!) - Native Mac app with chirping notifications
+- 💡 **Brilliant Budgies** (NEW!) - AI generates helpful coding ideas during off-hours
 
 ## Installation
 
@@ -29,9 +33,35 @@ pip install -r requirements.txt
 
 # Or install in development mode
 pip install -e .
+
+# For Mac menu bar app (optional)
+pip install -r requirements-mac.txt
 ```
 
 ## Quick Start
+
+### 0. First-Time Setup (Recommended)
+
+```bash
+parakeet setup
+```
+
+Run the interactive setup wizard to:
+- Configure which directories to watch for projects
+- Choose between recursive scanning or immediate subdirectories only
+- Set the maximum depth for recursive scanning
+
+You can also manage watch paths with these commands:
+```bash
+# Add a directory to watch
+parakeet add-path ~/projects
+
+# Remove a directory from watch list
+parakeet remove-path ~/old-projects
+
+# List all watch paths and their status
+parakeet list-paths
+```
 
 ### 1. Scan Your Projects
 
@@ -40,6 +70,12 @@ parakeet scan
 ```
 
 This will crawl through your coding folders and discover all projects.
+
+**How scanning works:**
+- Parakeet scans **subdirectories** of your watch paths, not the watch paths themselves
+- For example, if you add `~/coding`, it will scan `~/coding/project1`, `~/coding/project2`, etc., but NOT `~/coding` itself
+- Recursive scanning is enabled by default with a max depth of 3 levels
+- Projects are automatically detected by looking for indicator files (`.git`, `package.json`, `setup.py`, etc.)
 
 ### 2. View Status
 
@@ -56,6 +92,14 @@ parakeet dashboard
 ```
 
 Open your browser to `http://localhost:5000` to see the beautiful dashboard!
+
+### 3b. Or Launch the Mac Menu Bar App (NEW!)
+
+```bash
+parakeet menubar
+```
+
+Look for the 🦜 icon in your menu bar for quick access to all features!
 
 ### 4. View Breadcrumbs
 
@@ -214,14 +258,25 @@ dashboard_port: 5000
 git_maintenance_enabled: true  # Auto-commit and push features
 generate_docs: true  # Generate changelogs and time reports
 auto_commit_max_files: 10  # Max files before creating stacked commits
+scan_recursive: true  # Scan recursively or just immediate subdirectories
+scan_max_depth: 3  # Maximum depth for recursive scanning
 ```
 
 ## Commands
+
+### Setup and Configuration Commands
+- `parakeet setup` - Interactive setup wizard for first-time configuration
+- `parakeet add-path PATH` - Add a directory to watch paths
+- `parakeet remove-path PATH` - Remove a directory from watch paths
+- `parakeet list-paths` - List all watch paths and their status
+- `parakeet config-set KEY VALUE` - Set configuration value
+- `parakeet config-show` - Show current configuration
 
 ### Core Commands
 - `parakeet scan` - Scan and update project tracking
 - `parakeet status` - Show overall status and statistics
 - `parakeet dashboard` - Start the web dashboard
+- `parakeet menubar` - Launch the Mac menu bar app (macOS only)
 - `parakeet breadcrumb [PROJECT_PATH]` - View breadcrumbs
 
 ### Git Maintenance Commands (NEW!)
@@ -232,11 +287,6 @@ auto_commit_max_files: 10  # Max files before creating stacked commits
 ### Documentation Commands (NEW!)
 - `parakeet changelog PROJECT_PATH` - View project changelog
 - `parakeet time-report PROJECT_PATH` - View time tracking report
-
-### Configuration Commands
-- `parakeet breadcrumb [PROJECT_PATH]` - View breadcrumbs
-- `parakeet config-set KEY VALUE` - Set configuration value
-- `parakeet config-show` - Show current configuration
 
 ## Project Detection
 
