@@ -231,7 +231,8 @@ class AuthorshipTracker:
         
         for proc in processes:
             name_lower = proc['name'].lower()
-            cmdline = ' '.join(proc['cmdline']).lower()
+            cmdline_list = proc.get('cmdline', []) or []
+            cmdline = ' '.join(str(x) for x in cmdline_list if x).lower()
             
             # Check for Cursor (includes AI)
             if 'cursor' in name_lower:
