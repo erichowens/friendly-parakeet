@@ -64,8 +64,9 @@ class AuthorshipMetadata:
 class AuthorshipTracker:
     """Tracks authorship metadata for code commits."""
     
-    # Agent detection patterns
+    # Agent detection patterns - Comprehensive 2025 coverage
     AGENT_PATTERNS = {
+        # Major AI Coding Assistants
         'claude': [
             r'claude',
             r'anthropic',
@@ -84,6 +85,8 @@ class AuthorshipTracker:
             r'gpt-[34]',
             r'openai',
             r'\[gpt\]',
+            r'gpt-4o',
+            r'gpt-3\.5',
         ],
         'cursor_ai': [
             r'cursor ai',
@@ -103,34 +106,173 @@ class AuthorshipTracker:
             r'codewhisperer',
             r'aws codewhisperer',
         ],
+        # 2025 AI Assistants
+        'amazon_q': [
+            r'amazon q',
+            r'amazon q developer',
+            r'\[amazon.?q\]',
+        ],
+        'gemini': [
+            r'gemini',
+            r'bard',
+            r'google gemini',
+            r'gemini code assist',
+            r'\[gemini\]',
+        ],
+        'sourcegraph_cody': [
+            r'cody',
+            r'sourcegraph',
+            r'\[cody\]',
+        ],
+        'replit_ai': [
+            r'replit',
+            r'ghostwriter',
+            r'\[replit\]',
+        ],
+        'phind': [
+            r'phind',
+            r'\[phind\]',
+        ],
+        'pieces': [
+            r'pieces',
+            r'pieces for developers',
+            r'\[pieces\]',
+        ],
+        'blackbox_ai': [
+            r'blackbox',
+            r'blackbox ai',
+            r'\[blackbox\]',
+        ],
+        'codegpt': [
+            r'codegpt',
+            r'\[codegpt\]',
+        ],
+        'deepseek': [
+            r'deepseek',
+            r'deepseek coder',
+            r'\[deepseek\]',
+        ],
+        'codellama': [
+            r'codellama',
+            r'code llama',
+            r'\[codellama\]',
+        ],
+        'aider': [
+            r'aider',
+            r'\[aider\]',
+        ],
+        'continue_dev': [
+            r'continue',
+            r'continue\.dev',
+            r'\[continue\]',
+        ],
+        'ollama': [
+            r'ollama',
+            r'\[ollama\]',
+        ],
+        'jan_ai': [
+            r'jan\.ai',
+            r'jan ai',
+            r'\[jan\]',
+        ],
     }
     
-    # IDE detection patterns
+    # IDE detection patterns - Comprehensive 2025 coverage
     IDE_PATTERNS = {
-        'vscode': ['code', 'vscode', 'visual studio code'],
+        # AI-Powered IDEs
         'cursor': ['cursor'],
         'windsurf': ['windsurf'],
+        'warp': ['warp', 'warpterminal'],  # AI-powered terminal
+        'replit': ['replit'],
+        # Microsoft IDEs
+        'vscode': ['code', 'vscode', 'visual studio code', 'code-insiders', 'codium', 'vscodium'],
+        'visual_studio': ['devenv', 'visual studio'],
+        # JetBrains Family
+        'intellij': ['idea', 'intellij', 'idea64'],
         'pycharm': ['pycharm'],
-        'intellij': ['idea', 'intellij'],
+        'webstorm': ['webstorm'],
+        'phpstorm': ['phpstorm'],
+        'rubymine': ['rubymine'],
+        'goland': ['goland'],
+        'clion': ['clion'],
+        'rider': ['rider'],
+        'datagrip': ['datagrip'],
+        'rustrover': ['rustrover'],
+        'aqua': ['aqua'],
+        'fleet': ['fleet'],
+        # Apple IDEs
+        'xcode': ['xcode'],
+        # Editors
         'vim': ['vim', 'nvim', 'neovim'],
         'emacs': ['emacs'],
-        'sublime': ['sublime', 'sublime_text'],
+        'sublime': ['sublime', 'sublime_text', 'subl'],
         'atom': ['atom'],
+        'brackets': ['brackets'],
+        'notepad++': ['notepad++', 'notepadplusplus'],
+        'geany': ['geany'],
+        'kate': ['kate'],
+        # Modern Editors
         'zed': ['zed'],
         'nova': ['nova'],
-        'fleet': ['fleet'],
-        'xcode': ['xcode'],
+        'lapce': ['lapce'],
+        'helix': ['helix', 'hx'],
+        'micro': ['micro'],
+        'positron': ['positron'],
+        # Other IDEs
+        'eclipse': ['eclipse'],
+        'netbeans': ['netbeans'],
+        'android_studio': ['android studio', 'studio'],
+        'codeblocks': ['codeblocks', 'code::blocks'],
+        # Terminals
+        'iterm': ['iterm', 'iterm2'],
+        'terminal': ['terminal', 'terminal.app'],
+        'alacritty': ['alacritty'],
+        'kitty': ['kitty'],
+        'hyper': ['hyper'],
+        'konsole': ['konsole'],
+        'gnome_terminal': ['gnome-terminal'],
+        # Cloud IDEs
+        'codespaces': ['codespaces'],
+        'gitpod': ['gitpod'],
+        'cloud9': ['cloud9'],
+        'codesandbox': ['codesandbox'],
+        'stackblitz': ['stackblitz'],
     }
     
-    # Environment detection
+    # Environment detection - Comprehensive 2025 coverage
     CI_ENVIRONMENTS = {
+        # Major CI/CD Platforms
         'GITHUB_ACTIONS': 'github_actions',
         'GITLAB_CI': 'gitlab_ci',
         'CIRCLECI': 'circleci',
         'TRAVIS': 'travis_ci',
         'JENKINS_URL': 'jenkins',
+        'JENKINS_HOME': 'jenkins',
         'CODEBUILD_BUILD_ID': 'aws_codebuild',
         'AZURE_PIPELINES': 'azure_pipelines',
+        'TF_BUILD': 'azure_pipelines',
+        # Additional CI/CD
+        'BUILDKITE': 'buildkite',
+        'DRONE': 'drone_ci',
+        'SEMAPHORE': 'semaphore_ci',
+        'BITBUCKET_PIPELINE_UUID': 'bitbucket_pipelines',
+        'TEAMCITY_VERSION': 'teamcity',
+        'bamboo_buildKey': 'bamboo',
+        'GO_PIPELINE_NAME': 'gocd',
+        'CONCOURSE_VERSION': 'concourse_ci',
+        'HARNESS_PIPELINE_ID': 'harness',
+        'SPINNAKER_EXECUTION_ID': 'spinnaker',
+        # Cloud Development Environments
+        'CODESPACES': 'github_codespaces',
+        'GITPOD_WORKSPACE_ID': 'gitpod',
+        'REPLIT': 'replit',
+        'CODESANDBOX_SSE': 'codesandbox',
+        'STACKBLITZ': 'stackblitz',
+        # Container Orchestration
+        'KUBERNETES_SERVICE_HOST': 'kubernetes',
+        'NOMAD_ALLOC_ID': 'nomad',
+        'OPENSHIFT_BUILD_NAME': 'openshift',
+        'RANCHER_URL': 'rancher',
     }
     
     def __init__(self, data_dir: Path):
@@ -201,6 +343,26 @@ class AuthorshipTracker:
             return 'cursor_ai'
         elif 'CODEIUM_API_KEY' in env_vars:
             return 'windsurf_ai'
+        elif 'TABNINE_API_KEY' in env_vars:
+            return 'tabnine'
+        elif 'AWS_CODEWHISPERER' in env_vars:
+            return 'amazon_q'
+        elif 'GOOGLE_AI_API_KEY' in env_vars or 'GEMINI_API_KEY' in env_vars:
+            return 'gemini'
+        elif 'SOURCEGRAPH_TOKEN' in env_vars:
+            return 'sourcegraph_cody'
+        elif 'REPLIT_DB_URL' in env_vars:
+            return 'replit_ai'
+        elif 'PIECES_API_KEY' in env_vars:
+            return 'pieces'
+        elif 'BLACKBOX_API_KEY' in env_vars:
+            return 'blackbox_ai'
+        elif 'CODEGPT_API_KEY' in env_vars:
+            return 'codegpt'
+        elif 'DEEPSEEK_API_KEY' in env_vars:
+            return 'deepseek'
+        elif 'OLLAMA_HOST' in env_vars:
+            return 'ollama'
         
         return 'unknown'
     
@@ -315,22 +477,36 @@ class AuthorshipTracker:
         if os.path.exists('/.dockerenv') or 'DOCKER_CONTAINER' in os.environ:
             return 'docker'
         
+        if 'PODMAN_SYSTEMD_UNIT' in os.environ or 'container' in os.environ.get('container', ''):
+            return 'podman'
+        
         if 'KUBERNETES_SERVICE_HOST' in os.environ:
             return 'kubernetes'
+        
+        # Check for LXC/LXD
+        if os.path.exists('/run/lxc') or os.path.exists('/run/lxd'):
+            return 'lxc'
         
         # Check for SSH
         if 'SSH_CONNECTION' in os.environ or 'SSH_CLIENT' in os.environ:
             return 'ssh'
         
         # Check for cloud environments
-        if 'AWS_EXECUTION_ENV' in os.environ:
+        if 'AWS_EXECUTION_ENV' in os.environ or 'AWS_LAMBDA_FUNCTION_NAME' in os.environ:
             return 'aws_lambda'
         
-        if 'GOOGLE_CLOUD_PROJECT' in os.environ:
+        if 'GOOGLE_CLOUD_PROJECT' in os.environ or 'GCP_PROJECT' in os.environ:
             return 'google_cloud'
         
-        if 'AZURE_HTTP_USER_AGENT' in os.environ:
+        if 'AZURE_HTTP_USER_AGENT' in os.environ or 'AZURE_FUNCTIONS_ENVIRONMENT' in os.environ:
             return 'azure'
+        
+        # Check for remote development
+        if 'REMOTE_CONTAINERS' in os.environ:
+            return 'vscode_remote_containers'
+        
+        if 'CODESPACES' in os.environ:
+            return 'github_codespaces'
         
         # Default to local
         return 'local'
@@ -366,6 +542,12 @@ class AuthorshipTracker:
             content = (project_dir / 'pyproject.toml').read_text()
             if 'poetry' in content:
                 tools.append('poetry')
+            if 'ruff' in content:
+                tools.append('ruff')
+            if 'black' in content:
+                tools.append('black')
+            if 'mypy' in content:
+                tools.append('mypy')
         
         # JavaScript/Node tools
         if (project_dir / 'package.json').exists():
@@ -373,13 +555,74 @@ class AuthorshipTracker:
             content = (project_dir / 'package.json').read_text()
             if 'jest' in content:
                 tools.append('jest')
+            if 'vitest' in content:
+                tools.append('vitest')
+            if 'playwright' in content:
+                tools.append('playwright')
+            if 'cypress' in content:
+                tools.append('cypress')
+            if 'mocha' in content:
+                tools.append('mocha')
             if 'webpack' in content:
                 tools.append('webpack')
             if 'vite' in content:
                 tools.append('vite')
+            if 'next' in content:
+                tools.append('nextjs')
+            if 'turbo' in content:
+                tools.append('turborepo')
+            if '@nx/' in content:
+                tools.append('nx')
         
         if (project_dir / 'yarn.lock').exists():
             tools.append('yarn')
+        
+        if (project_dir / 'pnpm-lock.yaml').exists():
+            tools.append('pnpm')
+        
+        if (project_dir / 'bun.lockb').exists():
+            tools.append('bun')
+        
+        if (project_dir / 'deno.json').exists() or (project_dir / 'deno.jsonc').exists():
+            tools.append('deno')
+        
+        # Java/JVM tools
+        if (project_dir / 'pom.xml').exists():
+            tools.append('maven')
+        
+        if (project_dir / 'build.gradle').exists() or (project_dir / 'build.gradle.kts').exists():
+            tools.append('gradle')
+        
+        # Rust
+        if (project_dir / 'Cargo.toml').exists():
+            tools.append('cargo')
+        
+        # Go
+        if (project_dir / 'go.mod').exists():
+            tools.append('go')
+        
+        # PHP
+        if (project_dir / 'composer.json').exists():
+            tools.append('composer')
+        
+        # Ruby
+        if (project_dir / 'Gemfile').exists():
+            tools.append('bundler')
+        
+        if (project_dir / 'Rakefile').exists():
+            tools.append('rake')
+        
+        # Elixir
+        if (project_dir / 'mix.exs').exists():
+            tools.append('mix')
+        
+        # Haskell
+        if (project_dir / 'stack.yaml').exists():
+            tools.append('stack')
+        
+        # Clojure
+        if (project_dir / 'project.clj').exists():
+            tools.append('leiningen')
         
         # Containerization
         if (project_dir / 'Dockerfile').exists():
@@ -389,14 +632,37 @@ class AuthorshipTracker:
            (project_dir / 'docker-compose.yaml').exists():
             tools.append('docker-compose')
         
+        if (project_dir / 'Containerfile').exists():
+            tools.append('podman')
+        
         # Kubernetes
         if (project_dir / 'k8s').exists() or \
-           list(project_dir.glob('**/deployment.yaml')):
+           list(project_dir.glob('**/deployment.yaml')) or \
+           list(project_dir.glob('**/kustomization.yaml')):
             tools.append('kubernetes')
         
-        # Make
+        if list(project_dir.glob('**/Chart.yaml')):
+            tools.append('helm')
+        
+        # Build tools
         if (project_dir / 'Makefile').exists():
             tools.append('make')
+        
+        if (project_dir / 'BUILD').exists() or (project_dir / 'WORKSPACE').exists():
+            tools.append('bazel')
+        
+        if (project_dir / 'CMakeLists.txt').exists():
+            tools.append('cmake')
+        
+        # Testing frameworks (additional)
+        if (project_dir / 'phpunit.xml').exists():
+            tools.append('phpunit')
+        
+        if (project_dir / '.rspec').exists():
+            tools.append('rspec')
+        
+        if list(project_dir.glob('**/cucumber.yml')):
+            tools.append('cucumber')
         
         return list(set(tools))  # Remove duplicates
     
@@ -412,8 +678,9 @@ class AuthorshipTracker:
         skills = []
         project_dir = Path(project_path)
         
-        # Map file extensions to languages
+        # Map file extensions to languages - Comprehensive 2025 coverage
         extension_map = {
+            # Popular languages
             '.py': 'python',
             '.js': 'javascript',
             '.ts': 'typescript',
@@ -427,11 +694,54 @@ class AuthorshipTracker:
             '.php': 'php',
             '.c': 'c',
             '.cpp': 'cpp',
+            '.cc': 'cpp',
+            '.cxx': 'cpp',
             '.cs': 'csharp',
             '.swift': 'swift',
             '.sh': 'bash',
             '.sql': 'sql',
             '.r': 'r',
+            # Modern/Emerging languages
+            '.zig': 'zig',
+            '.v': 'v',
+            '.nim': 'nim',
+            '.cr': 'crystal',
+            '.ex': 'elixir',
+            '.exs': 'elixir',
+            '.hs': 'haskell',
+            '.ml': 'ocaml',
+            '.fs': 'fsharp',
+            '.fsx': 'fsharp',
+            '.scala': 'scala',
+            '.sc': 'scala',
+            '.clj': 'clojure',
+            '.cljs': 'clojure',
+            '.erl': 'erlang',
+            '.lua': 'lua',
+            '.dart': 'dart',
+            '.jl': 'julia',
+            '.sol': 'solidity',
+            '.move': 'move',
+            '.cairo': 'cairo',
+            # Web technologies
+            '.html': 'html',
+            '.css': 'css',
+            '.scss': 'scss',
+            '.sass': 'sass',
+            '.less': 'less',
+            '.vue': 'vue',
+            '.svelte': 'svelte',
+            # Data & Config
+            '.json': 'json',
+            '.yaml': 'yaml',
+            '.yml': 'yaml',
+            '.toml': 'toml',
+            '.xml': 'xml',
+            '.md': 'markdown',
+            '.rst': 'restructuredtext',
+            # Assembly & Low-level
+            '.asm': 'assembly',
+            '.s': 'assembly',
         }
         
         # Scan for files
@@ -439,7 +749,7 @@ class AuthorshipTracker:
             if list(project_dir.glob(f'**/*{ext}')):
                 skills.append(lang)
         
-        # Check for specific frameworks
+        # Check for specific frameworks and technologies
         if (project_dir / 'package.json').exists():
             content = (project_dir / 'package.json').read_text()
             if 'react' in content:
@@ -448,6 +758,18 @@ class AuthorshipTracker:
                 skills.append('vue')
             if 'angular' in content:
                 skills.append('angular')
+            if 'svelte' in content:
+                skills.append('svelte')
+            if 'next' in content:
+                skills.append('nextjs')
+            if 'nuxt' in content:
+                skills.append('nuxtjs')
+            if 'express' in content:
+                skills.append('expressjs')
+            if 'fastify' in content:
+                skills.append('fastify')
+            if 'nest' in content:
+                skills.append('nestjs')
         
         if (project_dir / 'requirements.txt').exists():
             content = (project_dir / 'requirements.txt').read_text()
@@ -455,6 +777,32 @@ class AuthorshipTracker:
                 skills.append('django')
             if 'flask' in content:
                 skills.append('flask')
+            if 'fastapi' in content:
+                skills.append('fastapi')
+            if 'tornado' in content:
+                skills.append('tornado')
+            if 'numpy' in content:
+                skills.append('numpy')
+            if 'pandas' in content:
+                skills.append('pandas')
+            if 'tensorflow' in content or 'torch' in content:
+                skills.append('machine-learning')
+        
+        if (project_dir / 'Cargo.toml').exists():
+            content = (project_dir / 'Cargo.toml').read_text()
+            if 'tokio' in content:
+                skills.append('tokio')
+            if 'actix' in content:
+                skills.append('actix')
+        
+        if (project_dir / 'go.mod').exists():
+            content = (project_dir / 'go.mod').read_text()
+            if 'gin' in content:
+                skills.append('gin')
+            if 'echo' in content:
+                skills.append('echo')
+            if 'fiber' in content:
+                skills.append('fiber')
         
         return list(set(skills))  # Remove duplicates
     
@@ -492,6 +840,46 @@ class AuthorshipTracker:
         # Azure Pipelines
         if (project_dir / 'azure-pipelines.yml').exists():
             return 'azure_pipelines'
+        
+        # Buildkite
+        if (project_dir / '.buildkite').exists() or (project_dir / 'buildkite.yml').exists():
+            return 'buildkite'
+        
+        # Drone CI
+        if (project_dir / '.drone.yml').exists():
+            return 'drone_ci'
+        
+        # Semaphore CI
+        if (project_dir / '.semaphore').exists():
+            return 'semaphore_ci'
+        
+        # Bitbucket Pipelines
+        if (project_dir / 'bitbucket-pipelines.yml').exists():
+            return 'bitbucket_pipelines'
+        
+        # TeamCity
+        if (project_dir / '.teamcity').exists():
+            return 'teamcity'
+        
+        # Bamboo
+        if (project_dir / 'bamboo.yml').exists():
+            return 'bamboo'
+        
+        # GoCD
+        if (project_dir / '.gocd').exists():
+            return 'gocd'
+        
+        # Concourse CI
+        if (project_dir / 'concourse.yml').exists() or (project_dir / 'pipeline.yml').exists():
+            return 'concourse_ci'
+        
+        # Argo Workflows
+        if list(project_dir.glob('**/*workflow.yaml')) or list(project_dir.glob('**/*workflow.yml')):
+            return 'argo_workflows'
+        
+        # Tekton
+        if list(project_dir.glob('**/tekton/**/*.yaml')):
+            return 'tekton'
         
         return 'none'
     
