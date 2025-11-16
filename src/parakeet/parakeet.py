@@ -10,6 +10,7 @@ from .tracker import ProjectTracker
 from .breadcrumbs import BreadcrumbGenerator
 from .git_maintenance import GitMaintainer
 from .changelog import ChangelogManager
+from .authorship_tracker import AuthorshipTracker
 
 
 class Parakeet:
@@ -32,6 +33,7 @@ class Parakeet:
         self.breadcrumbs = BreadcrumbGenerator(self.config.data_dir)
         self.git_maintainer = GitMaintainer(self.config.data_dir)
         self.changelog = ChangelogManager(self.config.data_dir)
+        self.authorship_tracker = AuthorshipTracker(self.config.data_dir)
     
     def scan_and_update(self) -> List[Dict[str, Any]]:
         """Scan projects and update tracking data.
@@ -75,8 +77,53 @@ class Parakeet:
                     project['path'], 
                     project.get('type', 'unknown')
                 )
+            
+            # Track authorship for recent commits
+            if self.config.get('track_authorship', True):
+                self._track_project_authorship(project['path'])
         
         return projects
+    
+    def _track_project_authorship(self, project_path: str):
+        """Track authorship metadata for recent commits in a project.
+        
+        Args:
+            project_path: Path to the project
+        """
+        try:
+            import git
+            
+            repo = git.Repo(project_path)
+            
+            # Get recent commits (last 10)
+            commits = list(repo.iter_commits(max_count=10))
+            
+            for commit in commits:
+                # Check if we already tracked this commit
+                existing = self.authorship_tracker.authorship_data.get('commits', [])
+                if any(c.get('sha') == commit.hexsha for c in existing):
+                    continue
+                
+                # Track authorship metadata
+                try:
+                    metadata = self.authorship_tracker.track_git_commit(
+                        Path(project_path), 
+                        commit.hexsha
+                    )
+                    
+                    # Optionally embed in git notes
+                    if self.config.get('embed_authorship_in_notes', False):
+                        self.authorship_tracker.embed_in_git_notes(
+                            Path(project_path),
+                            commit.hexsha,
+                            metadata
+                        )
+                except Exception as e:
+                    # Skip commits that fail to track
+                    pass
+        except Exception:
+            # Not a git repository or other error, skip
+            pass
     
     def get_dashboard_data(self) -> Dict[str, Any]:
         """Get data for dashboard display.

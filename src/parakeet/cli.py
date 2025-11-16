@@ -436,5 +436,173 @@ def menubar(config):
         click.echo(f"❌ Error starting menu bar app: {e}")
 
 
+@main.command()
+@click.argument('project_path', required=False)
+@click.option('--config', '-c', help='Path to config file')
+@click.option('--agent', '-a', help='Filter by agent name')
+@click.option('--ide', '-i', help='Filter by IDE name')
+@click.option('--limit', '-l', default=20, help='Number of commits to show')
+def authorship(project_path, config, agent, ide, limit):
+    """Show authorship metadata for commits."""
+    parakeet = Parakeet(config)
+    
+    # If specific filters provided, use them
+    if agent:
+        commits = parakeet.authorship_tracker.query_by_agent(agent)
+        click.echo(f"\n🤖 Commits by agent '{agent}':\n")
+    elif ide:
+        commits = parakeet.authorship_tracker.query_by_ide(ide)
+        click.echo(f"\n💻 Commits using IDE '{ide}':\n")
+    else:
+        # Show all commits
+        commits = parakeet.authorship_tracker.authorship_data.get('commits', [])
+        click.echo(f"\n📝 Authorship Information:\n")
+    
+    if not commits:
+        click.echo("No authorship data found. Run 'parakeet scan' to collect data.")
+        return
+    
+    # Show limited number of commits
+    for commit in commits[:limit]:
+        sha = commit.get('sha', 'unknown')[:8]
+        agent_name = commit.get('agent', 'unknown')
+        ide_name = commit.get('ide', 'unknown')
+        env = commit.get('environment', 'unknown')
+        tools = ', '.join(commit.get('tools', [])[:3]) or 'none'
+        skills = ', '.join(commit.get('skills', [])[:3]) or 'none'
+        confidence = commit.get('confidence', 0.0)
+        
+        # Color code by agent
+        agent_icon = {
+            'claude': '🧠',
+            'claude_code': '🧠',
+            'github_copilot': '🤖',
+            'cursor_ai': '✨',
+            'windsurf_ai': '🌊',
+            'chatgpt': '💬',
+            'human': '👤',
+        }.get(agent_name, '❓')
+        
+        click.echo(f"{agent_icon} {sha} | Agent: {agent_name} | IDE: {ide_name}")
+        click.echo(f"  Environment: {env} | Confidence: {confidence:.0%}")
+        click.echo(f"  Tools: {tools} | Skills: {skills}")
+        click.echo()
+    
+    if len(commits) > limit:
+        click.echo(f"... and {len(commits) - limit} more commits")
+        click.echo(f"Use --limit to see more results")
+
+
+@main.command()
+@click.option('--config', '-c', help='Path to config file')
+@click.option('--format', '-f', type=click.Choice(['text', 'json']), default='text')
+def authorship_stats(config, format):
+    """Show statistics about code authorship."""
+    parakeet = Parakeet(config)
+    
+    stats = parakeet.authorship_tracker.get_statistics()
+    
+    if format == 'json':
+        click.echo(json.dumps(stats, indent=2))
+        return
+    
+    # Text format
+    click.echo("\n📊 Authorship Statistics\n")
+    click.echo("=" * 50)
+    
+    click.echo(f"\nTotal commits tracked: {stats['total_commits']}")
+    
+    if stats['by_agent']:
+        click.echo("\n🤖 By Agent:")
+        for agent, count in sorted(stats['by_agent'].items(), key=lambda x: x[1], reverse=True):
+            percentage = (count / stats['total_commits'] * 100) if stats['total_commits'] > 0 else 0
+            bar = '█' * int(percentage / 5)
+            click.echo(f"  {agent:20} {count:4} commits ({percentage:5.1f}%) {bar}")
+    
+    if stats['by_ide']:
+        click.echo("\n💻 By IDE:")
+        for ide, count in sorted(stats['by_ide'].items(), key=lambda x: x[1], reverse=True):
+            percentage = (count / stats['total_commits'] * 100) if stats['total_commits'] > 0 else 0
+            bar = '█' * int(percentage / 5)
+            click.echo(f"  {ide:20} {count:4} commits ({percentage:5.1f}%) {bar}")
+    
+    if stats['by_environment']:
+        click.echo("\n🌍 By Environment:")
+        for env, count in sorted(stats['by_environment'].items(), key=lambda x: x[1], reverse=True):
+            percentage = (count / stats['total_commits'] * 100) if stats['total_commits'] > 0 else 0
+            click.echo(f"  {env:20} {count:4} commits ({percentage:5.1f}%)")
+    
+    if stats['top_tools']:
+        click.echo("\n🔧 Top Tools:")
+        for tool, count in sorted(stats['top_tools'].items(), key=lambda x: x[1], reverse=True)[:10]:
+            click.echo(f"  {tool:20} {count:4} commits")
+    
+    if stats['top_skills']:
+        click.echo("\n🎯 Top Skills/Languages:")
+        for skill, count in sorted(stats['top_skills'].items(), key=lambda x: x[1], reverse=True)[:10]:
+            click.echo(f"  {skill:20} {count:4} commits")
+    
+    click.echo()
+
+
+@main.command()
+@click.argument('project_path')
+@click.option('--config', '-c', help='Path to config file')
+def analyze_authorship(project_path, config):
+    """Analyze authorship for a specific project."""
+    parakeet = Parakeet(config)
+    
+    project_path = Path(project_path).resolve()
+    
+    if not project_path.exists():
+        click.echo(f"❌ Project path does not exist: {project_path}")
+        return
+    
+    click.echo(f"\n🔍 Analyzing authorship for: {project_path.name}\n")
+    
+    # Detect current state
+    agent = parakeet.authorship_tracker.detect_agent_from_environment()
+    proc_agent = parakeet.authorship_tracker.detect_agent_from_processes()
+    ide = parakeet.authorship_tracker.detect_ide()
+    env = parakeet.authorship_tracker.detect_environment()
+    tools = parakeet.authorship_tracker.detect_tools(project_path)
+    skills = parakeet.authorship_tracker.detect_skills(project_path)
+    orch = parakeet.authorship_tracker.detect_orchestration(project_path)
+    
+    click.echo("Current Detection:")
+    click.echo(f"  Agent (env):       {agent}")
+    click.echo(f"  Agent (process):   {proc_agent}")
+    click.echo(f"  IDE:               {ide}")
+    click.echo(f"  Environment:       {env}")
+    click.echo(f"  Orchestration:     {orch}")
+    click.echo(f"  Tools:             {', '.join(tools) if tools else 'none detected'}")
+    click.echo(f"  Skills/Languages:  {', '.join(skills) if skills else 'none detected'}")
+    
+    # Analyze git commits if it's a git repo
+    try:
+        import git
+        repo = git.Repo(project_path)
+        
+        click.echo(f"\n📚 Recent Commits (last 10):")
+        
+        for commit in list(repo.iter_commits(max_count=10)):
+            sha = commit.hexsha[:8]
+            message = commit.message.split('\n')[0][:50]
+            agent = parakeet.authorship_tracker.detect_agent_from_commit_message(commit.message)
+            
+            agent_icon = {
+                'claude': '🧠',
+                'github_copilot': '🤖',
+                'cursor_ai': '✨',
+                'human': '👤',
+            }.get(agent, '❓')
+            
+            click.echo(f"  {agent_icon} {sha} {agent:15} {message}")
+    except Exception as e:
+        click.echo(f"\n⚠️  Not a git repository or error reading commits")
+    
+    click.echo()
+
+
 if __name__ == '__main__':
     main()
