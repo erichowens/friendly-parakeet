@@ -31,7 +31,7 @@ applyTo: "tests/**/*.py"
 - Verify mock calls when testing integration points
 
 ### Assertions
-- Use specific assertions (assertEqual, assertIn, etc.)
+- Use pytest-style assertions (assert ==, assert in, etc.)
 - Provide clear assertion messages
 - Test both success and failure cases
 - Verify error messages when appropriate
