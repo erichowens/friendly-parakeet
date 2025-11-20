@@ -380,6 +380,7 @@ class AuthorshipTracker:
                     'cmdline': proc.info.get('cmdline', [])
                 })
         except (psutil.NoSuchProcess, psutil.AccessDenied):
+            # These exceptions are expected if a process terminates or access is denied; skip such processes.
             pass
         return processes
     
