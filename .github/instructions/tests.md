@@ -80,7 +80,7 @@ applyTo: "tests/**/*.py"
 pytest
 
 # Run specific test file
-pytest tests/test_scanner.py
+pytest tests/unit/test_scanner_comprehensive.py
 
 # Run with coverage
 pytest --cov=parakeet
