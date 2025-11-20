@@ -1,0 +1,22 @@
+{
+  "name": "Royal Purple",
+  "description": "Mysterious purple variant - rare and special",
+  "colors": {
+    "transparent": [0, 0, 0, 0],
+    "outline_dark": [33, 33, 33],
+    "outline_light": [66, 66, 66],
+    "body_dark": [110, 70, 155],
+    "body_main": [160, 110, 215],
+    "body_light": [200, 160, 240],
+    "chest_dark": [190, 160, 200],
+    "chest_main": [230, 210, 240],
+    "chest_light": [250, 240, 255],
+    "beak_dark": [180, 120, 100],
+    "beak_main": [220, 170, 150],
+    "eye_white": [255, 255, 255],
+    "eye_pupil": [50, 50, 80],
+    "feet_dark": [150, 110, 130],
+    "feet_main": [190, 150, 170],
+    "accent": [140, 90, 200]
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "name": "Sky Blue & White",
+  "description": "Serene blue parakeet with white chest - calm and peaceful",
+  "colors": {
+    "transparent": [0, 0, 0, 0],
+    "outline_dark": [33, 33, 33],
+    "outline_light": [66, 66, 66],
+    "body_dark": [65, 135, 195],
+    "body_main": [100, 180, 240],
+    "body_light": [160, 210, 250],
+    "chest_dark": [220, 225, 230],
+    "chest_main": [245, 250, 255],
+    "chest_light": [255, 255, 255],
+    "beak_dark": [180, 140, 120],
+    "beak_main": [220, 190, 170],
+    "eye_white": [255, 255, 255],
+    "eye_pupil": [50, 50, 80],
+    "feet_dark": [160, 130, 110],
+    "feet_main": [200, 170, 150],
+    "accent": [80, 120, 200]
+  }
+}

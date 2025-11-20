@@ -1,0 +1,22 @@
+{
+  "name": "Classic Green & Yellow",
+  "description": "Traditional parakeet colors - vibrant green with yellow chest",
+  "colors": {
+    "transparent": [0, 0, 0, 0],
+    "outline_dark": [33, 33, 33],
+    "outline_light": [66, 66, 66],
+    "body_dark": [102, 176, 50],
+    "body_main": [153, 217, 70],
+    "body_light": [198, 239, 130],
+    "chest_dark": [230, 190, 50],
+    "chest_main": [255, 230, 100],
+    "chest_light": [255, 250, 180],
+    "beak_dark": [200, 120, 40],
+    "beak_main": [255, 160, 70],
+    "eye_white": [255, 255, 255],
+    "eye_pupil": [50, 50, 80],
+    "feet_dark": [180, 100, 60],
+    "feet_main": [220, 140, 90],
+    "accent": [100, 180, 220]
+  }
+}

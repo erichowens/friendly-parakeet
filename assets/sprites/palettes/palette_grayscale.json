@@ -1,0 +1,22 @@
+{
+  "name": "Monochrome Classic",
+  "description": "Retro Game Boy aesthetic - nostalgic grayscale",
+  "colors": {
+    "transparent": [0, 0, 0, 0],
+    "outline_dark": [33, 33, 33],
+    "outline_light": [66, 66, 66],
+    "body_dark": [80, 85, 90],
+    "body_main": [130, 140, 145],
+    "body_light": [190, 200, 205],
+    "chest_dark": [160, 165, 170],
+    "chest_main": [210, 215, 220],
+    "chest_light": [245, 245, 250],
+    "beak_dark": [100, 105, 110],
+    "beak_main": [150, 155, 160],
+    "eye_white": [255, 255, 255],
+    "eye_pupil": [50, 50, 80],
+    "feet_dark": [90, 95, 100],
+    "feet_main": [140, 145, 150],
+    "accent": [100, 110, 120]
+  }
+}

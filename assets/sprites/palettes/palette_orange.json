@@ -1,0 +1,22 @@
+{
+  "name": "Sunset Orange & Yellow",
+  "description": "Warm sunset colors - energetic orange with golden accents",
+  "colors": {
+    "transparent": [0, 0, 0, 0],
+    "outline_dark": [33, 33, 33],
+    "outline_light": [66, 66, 66],
+    "body_dark": [200, 110, 40],
+    "body_main": [255, 145, 60],
+    "body_light": [255, 185, 120],
+    "chest_dark": [235, 175, 50],
+    "chest_main": [255, 210, 80],
+    "chest_light": [255, 240, 150],
+    "beak_dark": [160, 80, 50],
+    "beak_main": [210, 120, 80],
+    "eye_white": [255, 255, 255],
+    "eye_pupil": [50, 50, 80],
+    "feet_dark": [140, 90, 60],
+    "feet_main": [180, 120, 90],
+    "accent": [220, 150, 80]
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "name": "Cherry Blossom Pink",
+  "description": "Soft pink palette - gentle and friendly",
+  "colors": {
+    "transparent": [0, 0, 0, 0],
+    "outline_dark": [33, 33, 33],
+    "outline_light": [66, 66, 66],
+    "body_dark": [200, 100, 140],
+    "body_main": [255, 150, 190],
+    "body_light": [255, 200, 225],
+    "chest_dark": [240, 200, 210],
+    "chest_main": [255, 230, 240],
+    "chest_light": [255, 245, 250],
+    "beak_dark": [200, 140, 120],
+    "beak_main": [240, 190, 170],
+    "eye_white": [255, 255, 255],
+    "eye_pupil": [50, 50, 80],
+    "feet_dark": [180, 130, 140],
+    "feet_main": [220, 170, 180],
+    "accent": [255, 120, 180]
+  }
+}
