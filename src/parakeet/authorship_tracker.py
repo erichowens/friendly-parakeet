@@ -985,17 +985,22 @@ class AuthorshipTracker:
         
         return metadata
     
-    def store_metadata(self, commit_sha: str, metadata: AuthorshipMetadata):
+    def store_metadata(self, commit_sha: str, metadata: AuthorshipMetadata, project_path: Path = None):
         """Store authorship metadata for a commit.
         
         Args:
             commit_sha: Git commit SHA
             metadata: Authorship metadata
+            project_path: Optional path to project
         """
         commit_entry = {
             'sha': commit_sha,
             **metadata.to_dict()
         }
+        
+        # Add project path if provided
+        if project_path:
+            commit_entry['project'] = str(project_path.resolve())
         
         self.authorship_data['commits'].append(commit_entry)
         self._save_authorship_data()
@@ -1095,7 +1100,7 @@ class AuthorshipTracker:
         }
         
         metadata = self.track_commit(commit_data, repo_path)
-        self.store_metadata(commit_sha, metadata)
+        self.store_metadata(commit_sha, metadata, repo_path)
         
         return metadata
     

@@ -458,6 +458,15 @@ def authorship(project_path, config, agent, ide, limit):
         commits = parakeet.authorship_tracker.authorship_data.get('commits', [])
         click.echo(f"\n📝 Authorship Information:\n")
     
+    # Filter by project_path if provided
+    if project_path:
+        from pathlib import Path
+        project_path = str(Path(project_path).resolve())
+        project_commits = [c for c in commits if c.get('project') == project_path]
+        commits = project_commits
+        if commits:
+            click.echo(f"Filtered by project: {project_path}\n")
+    
     if not commits:
         click.echo("No authorship data found. Run 'parakeet scan' to collect data.")
         return
