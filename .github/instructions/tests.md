@@ -13,8 +13,8 @@ applyTo: "tests/**/*.py"
 
 ### Test Naming
 - Use descriptive test function names: test_<feature>_<scenario>
-- Example: test_scanner_detects_python_projects
-- Example: test_git_maintainer_creates_stacked_commits
+- Example: test_scanner_initialization_with_valid_paths
+- Example: test_git_maintainer_handles_auto_commit
 
 ## Test Patterns
 
