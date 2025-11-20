@@ -4,3 +4,4 @@ jinja2>=3.0.0
 click>=8.0.0
 pyyaml>=6.0
 python-dateutil>=2.8.0
+psutil>=5.9.0

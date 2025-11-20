@@ -18,8 +18,9 @@ Friendly Parakeet is a project progress tracker and velocity monitor that:
 - 🚀 **Auto-push** - Keeps your work synced to remote (configurable per-project)
 - 📚 **Documentation** - Generates changelogs and time reports automatically
 - ⏱️ **Time tracking** - Tracks how long work actually takes on each project
-- 🖥️ **Mac Menu Bar App** (NEW!) - Native Mac app with chirping notifications
-- 💡 **Brilliant Budgies** (NEW!) - AI generates helpful coding ideas during off-hours
+- 🤖 **Authorship tracking** (NEW!) - Infers which AI agent, IDE, and environment wrote your code
+- 🖥️ **Mac Menu Bar App** - Native Mac app with chirping notifications
+- 💡 **Brilliant Budgies** - AI generates helpful coding ideas during off-hours
 
 ## Installation
 
@@ -142,7 +143,36 @@ parakeet time-report /path/to/project
 
 ## Features in Detail
 
-### 🔧 Git Maintenance & Hygiene (NEW!)
+### 🤖 Code Authorship Tracking (NEW!)
+
+Friendly Parakeet can now infer and track metadata about how your code was written:
+
+**What it tracks:**
+- **AI Agent**: Claude, GitHub Copilot, ChatGPT, Cursor AI, Windsurf, and more
+- **IDE**: VS Code, Cursor, Windsurf, PyCharm, Vim, and others
+- **Environment**: Local, GitHub Actions, GitLab CI, Docker, SSH, etc.
+- **Tools**: git, pytest, docker, npm, and other development tools
+- **Skills**: Programming languages and frameworks detected in your code
+- **Orchestration**: CI/CD systems like GitHub Actions, Jenkins, etc.
+
+**Commands:**
+```bash
+# View authorship information
+parakeet authorship
+
+# Filter by agent
+parakeet authorship --agent claude
+
+# View statistics
+parakeet authorship-stats
+
+# Analyze a specific project
+parakeet analyze-authorship /path/to/project
+```
+
+[📖 Read the full Authorship Tracking documentation →](AUTHORSHIP_TRACKING.md)
+
+### 🔧 Git Maintenance & Hygiene
 
 Parakeet helps keep your git repositories clean and up-to-date:
 
@@ -260,6 +290,8 @@ generate_docs: true  # Generate changelogs and time reports
 auto_commit_max_files: 10  # Max files before creating stacked commits
 scan_recursive: true  # Scan recursively or just immediate subdirectories
 scan_max_depth: 3  # Maximum depth for recursive scanning
+track_authorship: true  # Track code authorship metadata (NEW!)
+embed_authorship_in_notes: false  # Embed authorship in git notes (experimental)
 ```
 
 ## Commands
@@ -287,6 +319,11 @@ scan_max_depth: 3  # Maximum depth for recursive scanning
 ### Documentation Commands (NEW!)
 - `parakeet changelog PROJECT_PATH` - View project changelog
 - `parakeet time-report PROJECT_PATH` - View time tracking report
+
+### Authorship Tracking Commands (NEW!)
+- `parakeet authorship [--agent AGENT] [--ide IDE] [--limit N]` - View authorship metadata
+- `parakeet authorship-stats [--format text|json]` - View authorship statistics
+- `parakeet analyze-authorship PROJECT_PATH` - Analyze authorship for a project
 
 ## Project Detection
 
