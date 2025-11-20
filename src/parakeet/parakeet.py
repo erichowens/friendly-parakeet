@@ -1,5 +1,6 @@
 """Main orchestrator for Friendly Parakeet."""
 
+import logging
 from pathlib import Path
 from typing import Dict, Any, List
 from datetime import datetime
@@ -11,6 +12,9 @@ from .breadcrumbs import BreadcrumbGenerator
 from .git_maintenance import GitMaintainer
 from .changelog import ChangelogManager
 from .authorship_tracker import AuthorshipTracker
+
+# Configure logger
+logger = logging.getLogger(__name__)
 
 
 class Parakeet:
@@ -119,11 +123,11 @@ class Parakeet:
                             metadata
                         )
                 except Exception as e:
-                    # Skip commits that fail to track
-                    pass
-        except Exception:
-            # Not a git repository or other error, skip
-            pass
+                    # Skip commits that fail to track due to git errors or metadata collection issues
+                    logger.debug(f"Failed to track commit {commit.hexsha}: {e}")
+        except Exception as e:
+            # Not a git repository or other error, skip authorship tracking
+            logger.debug(f"Skipping authorship tracking for {project_path}: {e}")
     
     def get_dashboard_data(self) -> Dict[str, Any]:
         """Get data for dashboard display.

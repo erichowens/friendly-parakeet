@@ -2,7 +2,6 @@
 """Demo script to showcase authorship tracking capabilities."""
 
 import tempfile
-import shutil
 from pathlib import Path
 import git
 import sys

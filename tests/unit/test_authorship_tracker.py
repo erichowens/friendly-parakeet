@@ -11,10 +11,8 @@ import os
 import json
 import tempfile
 from pathlib import Path
-from datetime import datetime
-from unittest.mock import Mock, patch, MagicMock
+from unittest.mock import patch
 
-import pytest
 import git
 
 import sys

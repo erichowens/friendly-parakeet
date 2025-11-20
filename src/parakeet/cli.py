@@ -464,7 +464,8 @@ def authorship(project_path, config, agent, ide, limit):
     
     # Show limited number of commits
     for commit in commits[:limit]:
-        sha = commit.get('sha', 'unknown')[:8]
+        sha = commit.get('sha', 'unknown')
+        sha_short = sha[:8] if sha != 'unknown' else 'unknown'
         agent_name = commit.get('agent', 'unknown')
         ide_name = commit.get('ide', 'unknown')
         env = commit.get('environment', 'unknown')
@@ -483,7 +484,7 @@ def authorship(project_path, config, agent, ide, limit):
             'human': '👤',
         }.get(agent_name, '❓')
         
-        click.echo(f"{agent_icon} {sha} | Agent: {agent_name} | IDE: {ide_name}")
+        click.echo(f"{agent_icon} {sha_short} | Agent: {agent_name} | IDE: {ide_name}")
         click.echo(f"  Environment: {env} | Confidence: {confidence:.0%}")
         click.echo(f"  Tools: {tools} | Skills: {skills}")
         click.echo()

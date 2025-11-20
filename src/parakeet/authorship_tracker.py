@@ -11,11 +11,15 @@ This module provides capabilities to infer and track metadata about how code was
 import os
 import json
 import re
+import logging
 from pathlib import Path
 from datetime import datetime
 from typing import Dict, Any, List, Optional
 from dataclasses import dataclass, asdict
 import psutil
+
+# Configure logger
+logger = logging.getLogger(__name__)
 
 
 @dataclass
@@ -25,10 +29,10 @@ class AuthorshipMetadata:
     agent: str = "unknown"
     ide: str = "unknown"
     environment: str = "unknown"
-    tools: List[str] = None
-    skills: List[str] = None
+    tools: Optional[List[str]] = None
+    skills: Optional[List[str]] = None
     orchestration: str = "unknown"
-    timestamp: str = None
+    timestamp: Optional[str] = None
     confidence: float = 0.0
     
     def __post_init__(self):
@@ -530,7 +534,7 @@ class AuthorshipTracker:
         
         # Python tools
         if (project_dir / 'pytest.ini').exists() or \
-           (project_dir / 'setup.cfg').exists() and 'pytest' in (project_dir / 'setup.cfg').read_text():
+           ((project_dir / 'setup.cfg').exists() and 'pytest' in (project_dir / 'setup.cfg').read_text()):
             tools.append('pytest')
         
         if (project_dir / 'requirements.txt').exists():
@@ -540,40 +544,46 @@ class AuthorshipTracker:
             tools.append('pipenv')
         
         if (project_dir / 'pyproject.toml').exists():
-            content = (project_dir / 'pyproject.toml').read_text()
-            if 'poetry' in content:
-                tools.append('poetry')
-            if 'ruff' in content:
-                tools.append('ruff')
-            if 'black' in content:
-                tools.append('black')
-            if 'mypy' in content:
-                tools.append('mypy')
+            try:
+                content = (project_dir / 'pyproject.toml').read_text()
+                if 'poetry' in content:
+                    tools.append('poetry')
+                if 'ruff' in content:
+                    tools.append('ruff')
+                if 'black' in content:
+                    tools.append('black')
+                if 'mypy' in content:
+                    tools.append('mypy')
+            except (OSError, UnicodeDecodeError):
+                pass  # Skip if file cannot be read
         
         # JavaScript/Node tools
         if (project_dir / 'package.json').exists():
             tools.append('npm')
-            content = (project_dir / 'package.json').read_text()
-            if 'jest' in content:
-                tools.append('jest')
-            if 'vitest' in content:
-                tools.append('vitest')
-            if 'playwright' in content:
-                tools.append('playwright')
-            if 'cypress' in content:
-                tools.append('cypress')
-            if 'mocha' in content:
-                tools.append('mocha')
-            if 'webpack' in content:
-                tools.append('webpack')
-            if 'vite' in content:
-                tools.append('vite')
-            if 'next' in content:
-                tools.append('nextjs')
-            if 'turbo' in content:
-                tools.append('turborepo')
-            if '@nx/' in content:
-                tools.append('nx')
+            try:
+                content = (project_dir / 'package.json').read_text()
+                if 'jest' in content:
+                    tools.append('jest')
+                if 'vitest' in content:
+                    tools.append('vitest')
+                if 'playwright' in content:
+                    tools.append('playwright')
+                if 'cypress' in content:
+                    tools.append('cypress')
+                if 'mocha' in content:
+                    tools.append('mocha')
+                if 'webpack' in content:
+                    tools.append('webpack')
+                if 'vite' in content:
+                    tools.append('vite')
+                if 'next' in content:
+                    tools.append('nextjs')
+                if 'turbo' in content:
+                    tools.append('turborepo')
+                if '@nx/' in content:
+                    tools.append('nx')
+            except (OSError, UnicodeDecodeError):
+                pass  # Skip if file cannot be read
         
         if (project_dir / 'yarn.lock').exists():
             tools.append('yarn')
@@ -637,9 +647,10 @@ class AuthorshipTracker:
             tools.append('podman')
         
         # Kubernetes
-        if (project_dir / 'k8s').exists() or \
-           list(project_dir.glob('**/deployment.yaml')) or \
-           list(project_dir.glob('**/kustomization.yaml')):
+        k8s_dirs = [project_dir / 'k8s', project_dir / 'kubernetes', project_dir / '.k8s']
+        if any(d.exists() for d in k8s_dirs) or \
+           (project_dir / 'deployment.yaml').exists() or \
+           (project_dir / 'kustomization.yaml').exists():
             tools.append('kubernetes')
         
         if list(project_dir.glob('**/Chart.yaml')):
@@ -755,58 +766,85 @@ class AuthorshipTracker:
         
         # Check for specific frameworks and technologies
         if (project_dir / 'package.json').exists():
-            content = (project_dir / 'package.json').read_text()
-            if 'react' in content:
-                skills.append('react')
-            if 'vue' in content:
-                skills.append('vue')
-            if 'angular' in content:
-                skills.append('angular')
-            if 'svelte' in content:
-                skills.append('svelte')
-            if 'next' in content:
-                skills.append('nextjs')
-            if 'nuxt' in content:
-                skills.append('nuxtjs')
-            if 'express' in content:
-                skills.append('expressjs')
-            if 'fastify' in content:
-                skills.append('fastify')
-            if 'nest' in content:
-                skills.append('nestjs')
+            try:
+                with open(project_dir / 'package.json', encoding='utf-8') as f:
+                    pkg = json.load(f)
+                    deps = {}
+                    if isinstance(pkg.get('dependencies'), dict):
+                        deps.update(pkg.get('dependencies', {}))
+                    if isinstance(pkg.get('devDependencies'), dict):
+                        deps.update(pkg.get('devDependencies', {}))
+                    
+                    # Check for frameworks in dependencies
+                    if 'react' in deps:
+                        skills.append('react')
+                    if 'vue' in deps:
+                        skills.append('vue')
+                    if 'angular' in deps or '@angular/core' in deps:
+                        skills.append('angular')
+                    if 'svelte' in deps:
+                        skills.append('svelte')
+                    if 'next' in deps:
+                        skills.append('nextjs')
+                    if 'nuxt' in deps:
+                        skills.append('nuxtjs')
+                    if 'express' in deps:
+                        skills.append('expressjs')
+                    if 'fastify' in deps:
+                        skills.append('fastify')
+                    if 'nest' in deps or '@nestjs/core' in deps:
+                        skills.append('nestjs')
+            except (json.JSONDecodeError, OSError, UnicodeDecodeError):
+                pass  # Skip if file cannot be read or parsed
         
         if (project_dir / 'requirements.txt').exists():
-            content = (project_dir / 'requirements.txt').read_text()
-            if 'django' in content:
-                skills.append('django')
-            if 'flask' in content:
-                skills.append('flask')
-            if 'fastapi' in content:
-                skills.append('fastapi')
-            if 'tornado' in content:
-                skills.append('tornado')
-            if 'numpy' in content:
-                skills.append('numpy')
-            if 'pandas' in content:
-                skills.append('pandas')
-            if 'tensorflow' in content or 'torch' in content:
-                skills.append('machine-learning')
+            try:
+                with open(project_dir / 'requirements.txt', encoding='utf-8') as f:
+                    lines = f.readlines()
+                    for line in lines:
+                        line = line.strip()
+                        if not line or line.startswith('#'):
+                            continue
+                        # Extract package name from line (handle ==, >=, <=, etc.)
+                        pkg_name = re.split(r'[<=>!]', line)[0].strip().lower()
+                        if pkg_name == 'django':
+                            skills.append('django')
+                        elif pkg_name == 'flask':
+                            skills.append('flask')
+                        elif pkg_name == 'fastapi':
+                            skills.append('fastapi')
+                        elif pkg_name == 'tornado':
+                            skills.append('tornado')
+                        elif pkg_name == 'numpy':
+                            skills.append('numpy')
+                        elif pkg_name == 'pandas':
+                            skills.append('pandas')
+                        elif pkg_name in ('tensorflow', 'torch', 'pytorch'):
+                            skills.append('machine-learning')
+            except (OSError, UnicodeDecodeError):
+                pass  # Skip if file cannot be read
         
         if (project_dir / 'Cargo.toml').exists():
-            content = (project_dir / 'Cargo.toml').read_text()
-            if 'tokio' in content:
-                skills.append('tokio')
-            if 'actix' in content:
-                skills.append('actix')
+            try:
+                content = (project_dir / 'Cargo.toml').read_text()
+                if 'tokio' in content:
+                    skills.append('tokio')
+                if 'actix' in content:
+                    skills.append('actix')
+            except (OSError, UnicodeDecodeError):
+                pass  # Skip if file cannot be read
         
         if (project_dir / 'go.mod').exists():
-            content = (project_dir / 'go.mod').read_text()
-            if 'gin' in content:
-                skills.append('gin')
-            if 'echo' in content:
-                skills.append('echo')
-            if 'fiber' in content:
-                skills.append('fiber')
+            try:
+                content = (project_dir / 'go.mod').read_text()
+                if 'gin' in content:
+                    skills.append('gin')
+                if 'echo' in content:
+                    skills.append('echo')
+                if 'fiber' in content:
+                    skills.append('fiber')
+            except (OSError, UnicodeDecodeError):
+                pass  # Skip if file cannot be read
         
         return list(set(skills))  # Remove duplicates
     
@@ -1089,7 +1127,7 @@ class AuthorshipTracker:
             
             return True
         except Exception as e:
-            print(f"Error embedding git notes: {e}")
+            logger.error(f"Error embedding git notes: {e}")
             return False
     
     def read_from_git_notes(self, repo_path: Path, commit_sha: str) -> Optional[Dict[str, Any]]:
