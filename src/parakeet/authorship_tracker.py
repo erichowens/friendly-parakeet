@@ -745,8 +745,11 @@ class AuthorshipTracker:
         }
         
         # Scan for files
+        excluded_dirs = {'node_modules', 'venv', '.venv', 'vendor', '.git', 'dist', 'build'}
         for ext, lang in extension_map.items():
-            if list(project_dir.glob(f'**/*{ext}')):
+            files = [f for f in project_dir.glob(f'**/*{ext}') 
+                     if not any(excluded in f.parts for excluded in excluded_dirs)]
+            if files:
                 skills.append(lang)
         
         # Check for specific frameworks and technologies
