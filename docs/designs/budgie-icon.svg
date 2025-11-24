@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 160" width="128" height="160">
+  <!-- Friendly Parakeet Budgie Icon v2 -->
+  <!-- Based on authentic budgie features -->
+
+  <!-- Tail Feathers (behind body) -->
+  <polygon points="50,115 35,160 55,155 75,165 80,120"
+           fill="var(--budgie-tail, #3b82f6)"
+           stroke="var(--budgie-tail-stroke, #2563eb)"
+           stroke-width="2"/>
+
+  <!-- Body -->
+  <ellipse cx="57" cy="80" rx="38" ry="45"
+           fill="var(--budgie-body, #4ade80)"
+           stroke="var(--budgie-body-stroke, #22c55e)"
+           stroke-width="2"/>
+
+  <!-- Head -->
+  <ellipse cx="60" cy="35" rx="35" ry="35"
+           fill="var(--budgie-head, #fef08a)"
+           stroke="var(--budgie-head-stroke, #fde047)"
+           stroke-width="2"/>
+
+  <!-- Head Stripes (crown markings) -->
+  <ellipse cx="55" cy="20" rx="28" ry="18"
+           fill="var(--budgie-stripes, #1a1a1a)"
+           stroke="var(--budgie-head-stroke, #fde047)"
+           stroke-width="1"/>
+
+  <!-- Wing -->
+  <ellipse cx="40" cy="85" rx="25" ry="32"
+           fill="var(--budgie-wing, #22c55e)"
+           stroke="var(--budgie-wing-stroke, #16a34a)"
+           stroke-width="2"/>
+
+  <!-- Wing Stripes -->
+  <line x1="22" y1="75" x2="55" y2="82" stroke="var(--budgie-stripes, #1a1a1a)" stroke-width="2"/>
+  <line x1="20" y1="88" x2="58" y2="95" stroke="var(--budgie-stripes, #1a1a1a)" stroke-width="2"/>
+  <line x1="22" y1="100" x2="55" y2="107" stroke="var(--budgie-stripes, #1a1a1a)" stroke-width="2"/>
+
+  <!-- Cheek Spot -->
+  <ellipse cx="82" cy="50" rx="6" ry="8"
+           fill="var(--budgie-cheek, #6366f1)"
+           stroke="var(--budgie-cheek-stroke, #4f46e5)"
+           stroke-width="1"/>
+
+  <!-- Cere (nostril area) -->
+  <ellipse cx="90" cy="28" rx="5" ry="4"
+           fill="var(--budgie-cere, #60a5fa)"
+           stroke="var(--budgie-cere-stroke, #3b82f6)"
+           stroke-width="1"/>
+
+  <!-- Beak -->
+  <polygon points="88,32 103,37 100,44 88,42"
+           fill="var(--budgie-beak, #fbbf24)"
+           stroke="var(--budgie-beak-stroke, #f59e0b)"
+           stroke-width="1"/>
+
+  <!-- Eye -->
+  <ellipse cx="75" cy="30" rx="7" ry="7"
+           fill="var(--budgie-eye, #1a1a1a)"
+           stroke="var(--budgie-eye-ring, #ffffff)"
+           stroke-width="2"/>
+
+  <!-- Eye Highlight -->
+  <ellipse cx="77" cy="28" rx="2.5" ry="2.5"
+           fill="#ffffff"/>
+</svg>

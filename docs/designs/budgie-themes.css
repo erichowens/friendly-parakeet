@@ -1,0 +1,198 @@
+/* Friendly Parakeet - Budgie Color Themes
+ * Based on real budgie color mutations
+ * Apply to root or container to theme the entire UI
+ */
+
+/* Wild Green - Default Theme */
+:root, [data-theme="wild-green"] {
+  --budgie-body: #4ade80;
+  --budgie-body-stroke: #22c55e;
+  --budgie-head: #fef08a;
+  --budgie-head-stroke: #fde047;
+  --budgie-wing: #22c55e;
+  --budgie-wing-stroke: #16a34a;
+  --budgie-tail: #3b82f6;
+  --budgie-tail-stroke: #2563eb;
+  --budgie-beak: #fbbf24;
+  --budgie-beak-stroke: #f59e0b;
+  --budgie-cere: #60a5fa;
+  --budgie-cere-stroke: #3b82f6;
+  --budgie-cheek: #6366f1;
+  --budgie-cheek-stroke: #4f46e5;
+  --budgie-stripes: #1a1a1a;
+  --budgie-eye: #1a1a1a;
+  --budgie-eye-ring: #ffffff;
+
+  /* UI Theme Colors */
+  --ui-primary: #4ade80;
+  --ui-primary-hover: #22c55e;
+  --ui-secondary: #fef08a;
+  --ui-accent: #3b82f6;
+  --ui-background: #1a1a1a;
+  --ui-surface: #2a2a2a;
+  --ui-border: #22c55e;
+}
+
+/* Sky Blue - Active State / Cool Theme */
+[data-theme="sky-blue"] {
+  --budgie-body: #38bdf8;
+  --budgie-body-stroke: #0ea5e9;
+  --budgie-head: #e0f2fe;
+  --budgie-head-stroke: #bae6fd;
+  --budgie-wing: #0ea5e9;
+  --budgie-wing-stroke: #0284c7;
+  --budgie-tail: #3b82f6;
+  --budgie-tail-stroke: #2563eb;
+  --budgie-cheek: #6366f1;
+  --budgie-cheek-stroke: #4f46e5;
+
+  --ui-primary: #38bdf8;
+  --ui-primary-hover: #0ea5e9;
+  --ui-secondary: #e0f2fe;
+  --ui-accent: #3b82f6;
+  --ui-border: #0ea5e9;
+}
+
+/* Lutino - Warning State / Yellow Theme */
+[data-theme="lutino"] {
+  --budgie-body: #fde047;
+  --budgie-body-stroke: #facc15;
+  --budgie-head: #fef9c3;
+  --budgie-head-stroke: #fef08a;
+  --budgie-wing: #facc15;
+  --budgie-wing-stroke: #eab308;
+  --budgie-tail: #fbbf24;
+  --budgie-tail-stroke: #f59e0b;
+  --budgie-stripes: #d97706;
+  --budgie-cheek: #fbbf24;
+  --budgie-cheek-stroke: #f59e0b;
+  --budgie-cere: #fcd34d;
+  --budgie-cere-stroke: #fbbf24;
+
+  --ui-primary: #fde047;
+  --ui-primary-hover: #facc15;
+  --ui-secondary: #fef9c3;
+  --ui-accent: #f59e0b;
+  --ui-border: #facc15;
+}
+
+/* Violet - User Theme */
+[data-theme="violet"] {
+  --budgie-body: #a78bfa;
+  --budgie-body-stroke: #8b5cf6;
+  --budgie-head: #ede9fe;
+  --budgie-head-stroke: #ddd6fe;
+  --budgie-wing: #8b5cf6;
+  --budgie-wing-stroke: #7c3aed;
+  --budgie-tail: #6366f1;
+  --budgie-tail-stroke: #4f46e5;
+  --budgie-cheek: #c4b5fd;
+  --budgie-cheek-stroke: #a78bfa;
+
+  --ui-primary: #a78bfa;
+  --ui-primary-hover: #8b5cf6;
+  --ui-secondary: #ede9fe;
+  --ui-accent: #6366f1;
+  --ui-border: #8b5cf6;
+}
+
+/* Cobalt - User Theme */
+[data-theme="cobalt"] {
+  --budgie-body: #3b82f6;
+  --budgie-body-stroke: #2563eb;
+  --budgie-head: #dbeafe;
+  --budgie-head-stroke: #bfdbfe;
+  --budgie-wing: #2563eb;
+  --budgie-wing-stroke: #1d4ed8;
+  --budgie-tail: #1e40af;
+  --budgie-tail-stroke: #1e3a8a;
+  --budgie-cheek: #6366f1;
+  --budgie-cheek-stroke: #4f46e5;
+
+  --ui-primary: #3b82f6;
+  --ui-primary-hover: #2563eb;
+  --ui-secondary: #dbeafe;
+  --ui-accent: #1e40af;
+  --ui-border: #2563eb;
+}
+
+/* Albino - Idle State / Muted Theme */
+[data-theme="albino"] {
+  --budgie-body: #f8fafc;
+  --budgie-body-stroke: #e2e8f0;
+  --budgie-head: #ffffff;
+  --budgie-head-stroke: #f1f5f9;
+  --budgie-wing: #e2e8f0;
+  --budgie-wing-stroke: #cbd5e1;
+  --budgie-tail: #cbd5e1;
+  --budgie-tail-stroke: #94a3b8;
+  --budgie-stripes: #94a3b8;
+  --budgie-cheek: #cbd5e1;
+  --budgie-cheek-stroke: #94a3b8;
+  --budgie-cere: #f1f5f9;
+  --budgie-cere-stroke: #e2e8f0;
+  --budgie-beak: #fcd34d;
+  --budgie-beak-stroke: #fbbf24;
+  --budgie-eye: #64748b;
+  --budgie-eye-ring: #e2e8f0;
+
+  --ui-primary: #94a3b8;
+  --ui-primary-hover: #64748b;
+  --ui-secondary: #f1f5f9;
+  --ui-accent: #64748b;
+  --ui-border: #e2e8f0;
+}
+
+/* Cinnamon - Alert State / Red Theme */
+[data-theme="cinnamon"] {
+  --budgie-body: #f87171;
+  --budgie-body-stroke: #ef4444;
+  --budgie-head: #fecaca;
+  --budgie-head-stroke: #fca5a5;
+  --budgie-wing: #ef4444;
+  --budgie-wing-stroke: #dc2626;
+  --budgie-tail: #dc2626;
+  --budgie-tail-stroke: #b91c1c;
+  --budgie-stripes: #7f1d1d;
+  --budgie-cheek: #fca5a5;
+  --budgie-cheek-stroke: #f87171;
+
+  --ui-primary: #f87171;
+  --ui-primary-hover: #ef4444;
+  --ui-secondary: #fecaca;
+  --ui-accent: #dc2626;
+  --ui-border: #ef4444;
+}
+
+/* Status-based theme modifiers (overlays on base theme) */
+[data-status="idle"] {
+  --status-opacity: 0.6;
+  --status-saturation: 0.5;
+}
+
+[data-status="active"] {
+  --status-opacity: 1;
+  --status-saturation: 1;
+  --status-pulse: budgie-pulse 2s ease-in-out infinite;
+}
+
+[data-status="warning"] {
+  --status-opacity: 1;
+  --status-saturation: 1.2;
+}
+
+[data-status="alert"] {
+  --status-opacity: 1;
+  --status-saturation: 1;
+  --status-pulse: budgie-bounce 0.5s ease-in-out infinite;
+}
+
+@keyframes budgie-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+@keyframes budgie-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-2px); }
+}
